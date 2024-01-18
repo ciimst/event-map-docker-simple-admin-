@@ -1,0 +1,35 @@
+
+.icon-preview > img {
+    height: 31px;
+    width: 31px;
+    position: absolute;
+    top: -6px;
+    float:left;
+}
+
+#svgOutDiv{
+	float: left; 
+	border-radius: 50%; 
+	width: 32px; 
+	background-color: #5867dd; 
+	height: 32px;     
+	margin-left: 15px;
+}
+path{
+	
+	fill:#fff;
+}
+
+#eventTypeEditText{
+	
+	float:left;
+}
+#eventTypeSvg{
+	float: left;
+    width: 80px;
+    height: 50px;
+ 	margin-left: -4px;
+    margin-top: -9px;
+    display: block;
+ 
+}​

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="table">
+			
+			<style>
+				.dataTables_wrapper .bottom {
+					display: flow-root;
+				}
+				
+			</style>
+			
+			<table th:fragment="table" id="eventBasicTableId"
+				   class="table table-striped table-bordered table-hover dataTable"
+				   dt:table="true"
+				   th:attr="'dt:url'=@{/admin/map/event-basic/list/data}"
+				   dt:serverside="true"
+				   dt:reloadSelector="#search-button"
+				   dt:filterable="false"
+				   dt:lengthChange="false"
+				   dt:autoWidth="false"
+				   dt:serverParams="dataTableUtility.getExtraParams"
+				   style="width:100%"
+			>
+				<thead class="thead-default">
+					<tr>
+						<th dt:property="title" dt:sortInitDirection="desc" th:text="#{label.title}">title</th>
+						<th dt:property="spot"  th:text="#{label.event.spot}">spot</th>
+						<th dt:property="eventDate" dt:renderFunction="createDateFormatter" th:text="#{label.event.date}">eventDate</th>						
+						<th dt:property="eventTypeName"  th:text="#{label.event_type}">eventType</th>
+						<th dt:property="eventGroupName"  th:text="#{label.event_group}">eventGroup</th>
+						<th dt:property="state" th:text="#{label.state}" dt:renderFunction="dataTableUtility.stateFormatter" dt:sortable="false"></th>
+						<th dt:property="id" th:text="#{label.action}" dt:renderFunction="dataTableUtility.actionFormatter" dt:sortable="false" sec:authorize="hasRole('ROLE_EVENT_MANAGE')"></th>
+					</tr>
+				</thead>
+			</table>
+			
+		</div>
+		
+		
+		
+	</body>
+</html>

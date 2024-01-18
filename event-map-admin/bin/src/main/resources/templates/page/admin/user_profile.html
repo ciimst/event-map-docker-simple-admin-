@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables"
+      lang="en">
+    <head>
+        <title>Hello World!</title>
+    </head>
+    <body layout:fragment="content" >
+    
+        <link th:href="@{/css/profile.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+    
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                    <!--begin::Form-->
+                    <form class="advanced-search m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed p-1">
+                        <div class="m-portlet__body">
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label for="username" id="user-name-label" th:text="#{label.profile}"></label>
+                                    <input type="text"  name="username" id="username" class="form-control"
+                                           th:placeholder="#{label.profile}" aria-labelledby="user-name-label">
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row justify-content-end">
+                                <div class="col-lg-4" >
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <button type="button" id="search-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r">
+                                            <span><i class="la la-fw la-search"></i><span th:text="#{label.search}">Arama</span></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <div class="m-portlet m-portlet--mobile">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text" th:text="#{label.profiles}"></h3>
+                            </div>
+                        </div>
+                        <div class="m-portlet__head-tools" sec:authorize="hasRole('ROLE_PROFILE_MANAGE')">
+                            <button type="button" id="profile-add-btn" data-type="add" class="btn btn-success m-btn m-btn--icon">
+                                <span><i class="la la-fw la-plus"></i><span th:text="#{label.add.new}"></span></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <!--begin: Datatable -->
+                        
+                        <div class="table-container" th:replace="fragments/tables/profile_table :: table">
+                        
+                        </div>
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="modal-container">
+            
+            <div class="edit-modal" th:replace="fragments/modals/profile_edit_modal:: editModal"></div>
+            
+        </div>
+        
+    
+        <script th:src="@{/js/datatable-loader.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/datatable-utility.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/admin/profile-page.js?v=} +${build_version}"></script>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="table">
+			
+			<style>
+				.dataTables_wrapper .bottom {
+					display: flow-root;
+				}
+			</style>
+			
+			<table th:fragment="table" id="layerTableId"
+				   class="table table-striped table-bordered table-hover dataTable"
+				   dt:table="true"
+				   th:attr="'dt:url'=@{/admin/map/layer/list/data}"
+				   dt:serverside="true"
+				   dt:reloadSelector="#search-button"
+				   dt:filterable="false"
+				   dt:lengthChange="false"
+				   dt:autoWidth="false"
+				   dt:serverParams="dataTableUtility.getExtraParams"
+				   style="width:100%"
+			>
+				<thead class="thead-default">
+					<tr>
+						<th dt:property="name" style="width: 30%" dt:sortInitDirection="asc" th:text="#{label.name}">name</th>
+						<th dt:property="guid" style="width: 30%" dt:renderFunction="dataTableUtility.layerUrlFormatter" th:text="#{label.url}">url</th>
+						<th dt:property="createDate" dt:renderFunction="createDateFormatter" th:text="#{label.create.date}">create.date</th>
+						<th dt:property="state" dt:sortInitDirection="desc" dt:renderFunction="dataTableUtility.stateFormatter" th:text="#{label.state}">state</th>
+						<th dt:property="isTemp" dt:renderFunction="dataTableUtility.isTempFormatter" th:text="#{label.isTemp}">isTemp</th>
+						<th dt:property="id" style="width: 72px;" th:text="#{label.action}" dt:renderFunction="dataTableUtility.actionFormatter" dt:sortable="false" sec:authorize="hasRole('ROLE_LAYER_MANAGE')"></th>
+					</tr>
+				</thead>
+			</table>
+			
+		</div>
+		
+		
+		
+	</body>
+</html>

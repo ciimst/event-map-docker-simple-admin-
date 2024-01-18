@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      lang="en">
+    <head>
+        <title>Map Area Edit template</title>
+    </head>
+    <body layout:fragment="content" >
+        <link th:href="@{/css/map/map-area-edit.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/css/leaflet/easy-button.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/css/leaflet/leaflet.draw.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/webjars/leaflet/leaflet.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+    
+        <script th:src="@{/webjars/leaflet/leaflet.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/leaflet/easy-button.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/leaflet/leaflet.draw.js?v=} + ${@environment.getProperty('build.version')}"></script>
+    
+    
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let tileServers = [[${tileServers}]];
+            let mapAreaItem = [[${mapAreaItem}]];
+            let mapAreaGroupItems = [[${mapAreaGroups}]];
+            let mapAreaNotFound = [[${notFound}]];
+            /*]]>*/
+        </script>
+        
+        
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                    <!--begin::Form-->
+    
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text edit-page-title" th:text="#{label.map_area_edit}"></h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="map-area-form m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed p-1" >
+                        <input type="hidden" id="id" name="id" th:value="${mapAreaItem.id}" />
+                        <div class="m-portlet__body">
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label for="title" id="map-area-title-label" th:text="#{label.title}"></label>
+                                    <input type="text"  name="title" id="title" class="form-control"
+                                           th:placeholder="#{label.title}" aria-labelledby="map-area-title-label" th:value="${mapAreaItem.title}">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label for="mapAreaGroupId" th:text="#{label.mapAreaGroups}"></label>
+                                    <div class="m-select2">
+                                        <select class="form-control m-select2 m_select2_12_4"
+                                                id="mapAreaGroupId"
+                                                name="mapAreaGroupId"
+                                                th:attr="data-placeholder=#{label.mapAreaGroups}">
+                                            <option></option>
+                                            <option th:each="mapAreaGroup : ${mapAreaGroups}"
+                                                    th:value="${mapAreaGroup.id}"
+                                                    th:selected="${mapAreaGroup.id == mapAreaItem.mapAreaGroupId}"
+                                                    th:text="${mapAreaGroup.name}">Options</option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                <div class="col-lg-4 col-md-4 col-sm-12 mt-4">
+                                    <span class="col-9" th:text="#{label.state}"></span>
+                                    <span class="col-3 m-switch m-switch--sm m-switch--primary">
+										<label>
+											<input type="checkbox"
+                                                   th:name="state"
+                                                   th:checked="${mapAreaItem.state == true}"
+                                                   th:value="true">
+											<span></span>
+										</label>
+									</span>
+                                </div>
+                                
+                                
+                                <div class="col-lg-4 col-md-4 col-sm-12 mt-4">
+                                    <label for="coordinateInfo" id="map-area-coordinate-label" >
+                                        <span th:text="#{label.coordinate.info}"></span>
+                                        <small class="pl-1" th:text="'Format: [[...],[...]]'"></small>
+                                    </label>
+                                    <textarea rows="10" style="resize: none"
+                                              name="coordinateInfo" id="coordinateInfo" class="form-control"
+                                              th:placeholder="#{label.coordinate.info}" aria-labelledby="map-area-coordinate-label" th:text="${mapAreaItem.coordinateInfo}">
+                                        
+                                    </textarea>
+                                </div>
+    
+                                <div class="col-lg-4 col-md-4 col-sm-12 mt-4">
+                                    <div class="map-container-parent ">
+                                        <div class="map-container">
+                                            <div id="mapid"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            
+                            <div class="form-group m-form__group row justify-content-end" sec:authorize="hasRole('ROLE_MAP_AREA_MANAGE')">
+                                <div class="col-lg-4" >
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <button type="button" id="save-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r">
+                                            <span><i class="la la-fw la-save"></i><span th:text="#{label.save}">Save</span></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+                
+            </div>
+        </div>
+      
+        <div class="modal-container">
+        
+        </div>
+        
+        <script th:src="@{/js/admin/map/minimapn.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/admin/map/map-area-edit.js?v=} + ${@environment.getProperty('build.version')}"></script>
+    
+    </body>
+</html>

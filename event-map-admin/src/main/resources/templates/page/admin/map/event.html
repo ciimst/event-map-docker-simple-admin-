@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables"
+      lang="en">
+    <head>
+        <title>Event Type Template</title>
+    </head>
+    <body layout:fragment="content" >
+    
+        <link th:href="@{/css/map/event.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/css/leaflet/easy-button.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/webjars/leaflet/leaflet.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+        <link th:href="@{/webjars/leaflet-markercluster/MarkerCluster.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+    
+        <script th:src="@{/js/leaflet/jquery.awesome-cursor.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/webjars/leaflet/leaflet.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/leaflet/easy-button.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/webjars/leaflet-markercluster/leaflet.markercluster.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/leaflet/leaflet.markercluster.layersupport.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/leaflet/custom-layer-control.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/leaflet/marker-add-control.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let tileServers = [[${tileServers}]];
+            let eventItems = [[${eventItems}]];
+            let layerItems = [[${layerItems}]];
+            let cityItems = [[${cityItems}]];
+            let countryItems = [[${countryItems}]];
+            let eventGroupItems = [[${eventGroupItems}]];
+            let eventTypeItems = [[${eventTypeItems}]];
+            /*]]>*/
+        </script>
+    
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0 h-100">
+            <div class="map-container">
+                <div id="mapid"></div>
+            </div>
+       </div>
+    
+        <div class="modal-container">
+        
+    
+        </div>
+    
+        <script th:src="@{/js/admin/map/map-helper.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/admin/map/event-page.js?v=} + ${@environment.getProperty('build.version')}"></script>
+       
+        
+    </body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables"
+      lang="en">
+    <head>
+        <title></title>
+
+    </head>
+    <body layout:fragment="content" >   		
+			
+		<link th:href="@{/css/mobileTileFile.css}" rel="stylesheet" type="text/css" />
+   
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                
+	
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="" style="font-size:20px; margin-top:20px;" th:text="#{label.mobile.data}">Mobil Veri / <span class="layerName" th:text="${layerName}"></span></h3>														
+							</div>
+						</div>
+					</div>
+						
+					
+					<div class="col-lg-4 col-md-4 col-sm-12 pb-4">
+							<div class="" style="display: flex;">						
+							
+							 	<div class="col-sm-12 p-2">
+									<label for="username" id="username-label" th:text="#{label.export.name}"></label>
+									<input type="text"  name="name" id="name" class="form-control"  th:value="${layerExport == null ? '' : layerExport.name }"
+										   th:placeholder="#{label.export.name}" aria-labelledby="username-label">
+						  		</div>								
+								<div class="col-sm-12 p-2">
+									<input type="hidden" id="layerId" th:value="${layerId}"/>
+									<input type="hidden" id="layerExportId" th:value="${layerExportId}"/>
+									<label for="name" id="full-name-label" th:text="#{label.min.zoom.level}"></label><span style="color: red;">*</span>
+									<input type="text"  name="minZoom" id="minZoom" class="form-control" th:value="${layerExport == null ? '' : layerExport.minZ }"
+										   th:placeholder="#{label.min.zoom.level}" aria-labelledby="full-name-label">
+								</div>								
+								<div class="col-sm-12 p-2">
+									<label for="username" id="username-label" th:text="#{label.max.zoom.level}"></label><span style="color: red;">*</span>
+									<input type="text"  name="maxZoom" id="maxZoom" class="form-control"  th:value="${layerExport == null ? '' : layerExport.maxZ }"
+										   th:placeholder="#{label.max.zoom.level}" aria-labelledby="username-label">
+								</div>
+								
+							</div>	
+               		</div>
+               		
+               		<div class="col-lg-4 col-md-4 col-sm-12 pb-4">
+               			<div class="" style="display: flex;">
+               		 
+               		 	  	<div class="col-sm-12 p-2">
+                                <label th:text="#{label.layer}"></label><span style="color: red;">*</span>
+                                   <div class="m-select2">
+                                       <select class="form-control m-select2 m_select2_12_4"
+                                        		id="layerSelectBox"
+                                                name="layerId"
+                                                th:attr="data-placeholder=#{label.layer}">
+                                            <option></option>
+                                            <option th:each="layer : ${layers}"
+                                                    th:value="${layer.id}"
+                                                    th:text="${layer.name}"
+                                                    th:selected="${layerExport != null && layerExport.layerId==layer.id}">Options</option>
+                                      </select>
+                                   </div>
+                             </div>
+
+                            <div class="col-sm-12 p-2 datetimePicker">
+								<label th:text="#{label.start.date}"></label>
+								<input type="text" class="form-control dobpicker" id="startDate" name='eventDateStr' th:value="${layerExport == null ? '' : layerExport.startDateStr }"
+								data-date-default-date="04.June.2020 01:00" placeholder="MM/DD/YYYY" data-date-end-date="-18" autocomplete="off">
+							</div>
+								
+							<div class="col-sm-12 p-2 datetimePicker">
+								<label th:text="#{label.finish.date}"></label>
+								<input type="text" class="form-control dobpicker" id="finishDate" name='eventDateStr' th:value="${layerExport == null ? '' : layerExport.finishDateStr }"
+								data-date-default-date="04.June.2020 01:00" placeholder="MM/DD/YYYY" data-date-end-date="-18y" autocomplete="off">
+							</div>
+							
+												   
+						</div>
+               		</div>
+               		<div class="col-lg-4 col-md-4 col-sm-12 pb-4">
+						<div class="" style="display: flex;">													
+							 <div class="col-sm-12 p-2">
+							 	<label th:text="#{label.tile_server}"></label><span style="color: red;">*</span>
+                                   <div class="m-select2">
+                                       <select class="form-control m-select2 m_select2_12_4"
+                                        		id="tileServerSelectBox"
+                                                name="tileId"
+                                                th:attr="data-placeholder=#{label.tile_server}">
+                                            <option></option>
+                                            <option th:each="tile : ${tileServerList}"
+                                                    th:value="${tile.id}"
+                                                    th:text="${tile.name}"
+                                                    th:selected="${layerExport != null && layerExport.tileServerId==tile.id}">Options</option>
+                                      </select>
+                                   </div>
+							 </div>
+						</div> 							 	
+					</div>
+               		             		
+                    <div class="form-group m-form__group row justify-content-end" id="create">
+                      <div class="" >
+                            <div class="m-input-icon m-input-icon--right">
+                            	                          		                                 
+                            	 <button  type="button" id="createButton" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r" onclick="eventExportCreate()" style="margin:15px;  margin-right:100px;">
+									<span><i class="la la-plus-square-o"></i><span th:text="#{label.event.export.create}">Olay Export Oluştur</span></span>								
+                                 </button>	
+                                                                                                  
+                                 <button  type="button" id="tileCreateButton" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r" onclick="tileExportCreate()" style="margin:15px;">
+									<span><i class="la la-plus-square-o"></i><span th:text="#{label.tile.export.create}">Tile Export Oluştur</span></span>									
+                                 </button>
+                                 
+                                 <button type="button" id="editAndSaveButton" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r" onclick="layerExportSave()" style="margin:15px;">
+									<span><i class="la la-plus-square-o"></i><span id="layerExportSaveText" th:text="#{label.edit}">Düzenle</span></span>								
+                                 </button> 
+                                 
+                            </div>
+                      </div>
+                      
+                                        			
+                   </div>                                        
+            </div>
+            
+            <div class="m-portlet">
+            	<div class="row">
+            	
+	               <div class="" id="mobilDataList" style="float:left;" th:if="${tileList!=null and !tileList.empty}">	
+						<div class="m-portlet__head" >
+							<div class="m-portlet__head-caption">
+								<div class="m-portlet__head-title">
+									<h3 class="mobileData" th:text="#{label.mobile.tile.data}">Mobil Tile Verileri</h3>
+									<h3 class="mobileTileCriteria">[[#{label.create.date}]]: <span name="createDate" class="test" th:text="${#dates.format(layerExport.tileCreateDate, 'dd-MM-yyyy HH:mm')}"></span></h3>	
+									<h3 class="mobileTileCriteria" style="padding-bottom: 25px;">[[#{label.min.zoom.level}]]: <span name="" style="margin-right: 5px;" class="" th:text="${layerExport.minZ}"> </br></span>[[#{label.max.zoom.level}]]:<span name="" class="" th:text="${layerExport.maxZ}"></span></h3>
+													
+								</div>
+							</div>
+						</div>
+						
+						<div class="m-portlet__body">		
+				            <ul class="list-group">             
+						       <li class="list-group-item" id="tileFile" th:each="tileItem : ${tileList}">
+								 <a th:href="@{'/admin/map/layer-export/tileFileDownload/'+${tileItem.key}+'/'+${tileItem.value}}" th:text="${tileItem.key}" th:value="${tileItem.value}"  ></a>						   
+							   </li>
+							</ul>
+						</div>
+				   </div>       
+				   
+				   <div class="" id="mobilDataList" style="float:left;" th:if="${eventFileList!=null and !eventFileList.empty}">	
+				 
+						<div class="m-portlet__head">
+							<div class="m-portlet__head-caption">
+								<div class="m-portlet__head-title">
+									<h3 class="mobileData" th:text="#{label.mobile.event.data}">Mobil Olay Verileri</h3>	
+									<h3 class="mobileTileCriteria">[[#{label.create.date}]]: <span name="createDate" class="test" th:text="${#dates.format(layerExport.eventCreateDate, 'dd-MM-yyyy HH:mm')}"></span></h3>
+									<h3 class="mobileTileCriteria">[[#{label.min.zoom.level}]]: <span name="" style="margin-right: 5px;" class="" th:text="${layerExport.minZ}"> </br></span>[[#{label.max.zoom.level}]]:<span name="" class="" th:text="${layerExport.maxZ}"></span></h3>		
+									<h3 class="mobileTileCriteria">[[#{label.event.export.count}]]: <span name="" style="margin-right: 5px;" class="" th:text="${layerExport.eventExportCount}"> </br></span></h3>		
+								</div>
+							</div>
+						</div>					
+						<div class="m-portlet__body">		
+				            <ul class="list-group">             
+						       <li class="list-group-item" id="tileFile" th:each="eventItem : ${eventFileList}">
+								 <a th:href="@{'/admin/map/layer-export/allFileDownload/'+${eventItem.key}+'/'+${eventItem.value}+'/event'}" th:text="${eventItem.key}" th:value="${eventItem.value}"  ></a>						   
+							   </li>
+							</ul>
+						</div>
+				   </div>   
+				   			               
+               </div>           
+            </div>
+          </div>
+       </div>   
+          
+       <script th:src="@{/js/admin/map/layer-export-page.js?v=} + ${@environment.getProperty('build.version')}"></script>                  		
+       <!--  <script th:src="@{/js/admin/map/layer-page.js?v=} + ${@environment.getProperty('build.version')}"></script>-->
+        
+    </body>
+</html>

@@ -1,0 +1,18 @@
+{
+	"sSearch": "Search :",
+	"oPaginate": {
+		"sFirst": "<<",
+		"sPrevious": "<",
+		"sNext": ">",
+		"sLast": ">>"
+	},
+	"sProcessing":   "Processing...",
+	"sLengthMenu":   "_MENU_",
+	"sZeroRecords":  "No matching entries found",
+	"sInfo":         "Showing _START_ - _END_ entries",
+	"sInfoEmpty":    "There are no records to display",
+	"sEmptyTable":   "No records found",
+	"sInfoFiltered": "(filtered from _TOTAL_ total entries)",
+	"sInfoPostFix":  "",
+	"sUrl":          ""
+}

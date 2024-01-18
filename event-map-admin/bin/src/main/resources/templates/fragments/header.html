@@ -1,0 +1,112 @@
+<!DOCTYPE html >
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+
+<body>
+
+    <!-- BEGIN: Header -->
+	<header th:fragment="header" class="m-grid__item    m-header "  data-minimize-offset="200" data-minimize-mobile-offset="200" >
+		<div class="m-container m-container--fluid m-container--full-height">
+			<div class="m-stack m-stack--ver m-stack--desktop">
+				<!-- BEGIN: Brand -->
+				<div class="m-stack__item m-brand  m-brand--skin-dark ">
+					<div class="m-stack m-stack--ver m-stack--general">
+						<div class="m-stack__item m-stack__item--middle m-brand__logo">
+							<a href="/" class="m-brand__logo-wrapper">
+								<img alt="" th:src="@{'/image/static/' + ${T(com.imst.event.map.admin.utils.SettingsUtil).getAdminLogoImage()}}" style="max-width: 100px;"/>
+							</a>
+						</div>
+						<div class="m-stack__item m-stack__item--middle m-brand__tools">
+							<!-- BEGIN: Left Aside Minimize Toggle -->
+							<a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block ">
+								<span></span>
+							</a>
+							<!-- END -->
+							<!-- BEGIN: Responsive Aside Left Menu Toggler -->
+							<a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+								<span></span>
+							</a>
+							<!-- END -->
+							<!-- BEGIN: Responsive Header Menu Toggler -->
+							<a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+								<span></span>
+							</a>
+							<!-- END -->
+							<!-- BEGIN: Topbar Toggler -->
+							<a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+								<i class="flaticon-more"></i>
+							</a>
+							<!-- BEGIN: Topbar Toggler -->
+						</div>
+					</div>
+				</div>
+				<!-- END: Brand -->
+				<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+					<!-- BEGIN: Horizontal Menu -->
+					<button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark " id="m_aside_header_menu_mobile_close_btn">
+						<i class="la la-close"></i>
+					</button>
+					<!-- END: Horizontal Menu -->
+<!-- 					BEGIN: Topbar -->
+					<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
+                            
+                        </div>
+					
+					<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
+							<div class="m-stack__item m-topbar__nav-wrapper">
+                                <ul class="m-topbar__nav m-nav m-nav--inline">
+                                        <li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">
+
+                                            <a class="m-nav__link top-mrg" href="#">
+                                                <span class="m-nav__link-badge m-badge m-badge--dot m-badge--info m--hide"></span>
+                                                <span class="m-nav__link-icon d-inline">
+                                                    <i class="fa fa-user-circle fa-fw"></i> <span th:text="#{label.welcome}">Hoşgeldin</span>,  <span sec:authentication="principal.displayName">User Name</span></span>
+
+                                            </a>
+
+                                        </li>
+                                        
+                                        <li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light" style="top: -5px" data-dropdown-toggle="click">
+
+                                            <a id="locale" class="m-nav__link top-mrg" href="#" th:data-iso="#{lang.target.iso}">
+                                                <span class="m-nav__link-badge m-badge m-badge--dot m-badge--info m--hide"></span>
+                                                <span class="m-nav__link-icon d-inline">
+                                                	<img style="width: 36px" th:src="@{/image/flags/} + #{lang.image}" />    
+                                                </span>
+
+                                            </a>
+
+                                        </li>
+                                        
+                                        <li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light" data-dropdown-toggle="click">		
+											<a class="m-nav__link top-mrg" href="javascript: document.logoutForm.submit()">
+                                                <span class="m-nav__link-badge m-badge m-badge--dot m-badge--info m--hide"></span>
+                                                <span class="m-nav__link-icon d-inline">
+                                                    <i class="fa fa-sign-out fa-fw"></i> <span th:text="#{label.exit}">Çıkış</span>
+                                                </span>
+                                            </a>
+                                            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+													<input hidden type="submit" value="Logout"/>
+											</form> 
+
+                                        </li>
+
+								</ul>
+                            </div>
+						</div>
+					</div>
+
+					<!-- END: Top bar -->
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- END: Header -->
+
+</body>
+</html>

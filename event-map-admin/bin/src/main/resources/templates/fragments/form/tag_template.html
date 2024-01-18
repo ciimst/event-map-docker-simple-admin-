@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<body>
+		<div th:fragment="inputTemplate" th:remove="tag" >
+			<label th:text="#{label + '.' + ${item.settingsKey}}"></label>
+			<input th:if="${item.type == 'pass' || item.type == 'password'}"
+				   th:type="'password'"
+				   th:classappend="${item.type} + 'Type'"
+				   th:placeholder="#{label.message.new.password}"
+				   th:name="${item.settingsKey}" class="form-control"
+				   th:value="${item.settingsValue}"/>
+			
+			<input th:if="${item.type != 'pass' && item.type != 'password'}"
+				   th:type="'text'"
+				   th:classappend="${item.type} + 'Type'"
+				   th:placeholder="#{label + '.' + ${item.settingsKey}}"
+				   th:name="${item.settingsKey}" class="form-control"
+				   th:value="${item.settingsValue}"/>
+		</div>
+
+		<div th:fragment="switchTemplate" th:remove="tag">
+			<span class="col-9" th:text="#{label + '.' + ${item.settingsKey}}"></span>
+			<span class="col-3 m-switch m-switch--sm m-switch--primary">
+				<label>
+					<input type="checkbox"
+						   th:name="${item.settingsKey}"
+						   th:checked="${item.settingsValue == 'true'}"
+						   th:value="${item?.settingsValue}">
+					<span></span>
+				</label>
+			</span>
+		</div>
+		<div th:fragment="checkboxTemplate" th:remove="tag" >
+			<label style="display:block;">&nbsp;</label>
+			<label class="custom-control custom-checkbox">
+				<input th:name="${item.settingsKey}"
+					   th:type="${item.type}" class="custom-control-input" th:checked="${item.settingsValue == 'true'}" th:value="${item?.settingsValue}"/>
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description" th:text="#{label + '.' + ${item.settingsKey}}"></span>
+			</label>
+		</div>
+		
+		<div th:fragment="selectTemplate" th:remove="tag">
+			<label th:text="#{label + '.' + ${item.name}}"></label>
+			<select class="form-control" th:name="${item.name}">
+				<option th:each="number : ${#numbers.sequence(1,5)}"
+				        th:text="${number}"
+				        th:value="${number}"
+				>
+				</option>
+			</select>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables"
+      lang="en">
+    <head>
+        <title>Hello World!</title>
+    </head>
+    <body layout:fragment="content" >
+    
+        <link th:href="@{/css/profile.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+        
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                    <!--begin::Form-->
+                    <form id="settingsForm" class="m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed p-1">
+                        <div class="m-portlet__body">
+                            
+                            <div class="form-group m-form__group row" th:each="instance : ${settingsMap}">
+        
+                             
+        					<h5 class="col-lg-12 pb-4" th:text="#{label + '.' + ${instance.key}}">test</h5>
+                                <div th:each="item, iterStat : ${instance.value}" th:remove="tag" >
+               
+                                    <div class="col-lg-4 col-md-4 col-sm-12 pb-4">
+                                        <div th:replace="@{fragments/form/tag_template} :: (${item.type == 'checkbox'} ? 'switchTemplate' : 'inputTemplate')(additionalParam='false')">
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+                            
+                            <div class="form-group m-form__group row justify-content-end" sec:authorize="hasRole('ROLE_MANAGE_SETTINGS')">						   
+							   <div class="col-lg-8" style="margin-top: 10px;">
+	                               <a class="text-center" th:text="'v-' + ${@environment.getProperty('build.version')}" style="color: #575962;">			
+			    				   </a>
+                                </div>
+                                <div class="col-lg-4" >
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <button type="button" id="settings-save-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r">
+											<span><i class="la la-save"></i><span th:text="#{label.save}"></span></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+    
+        <div class="modal-container">
+        
+        </div>
+        <script th:src="@{/js/admin/settings-page.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="table">
+			
+			<style>
+				.dataTables_wrapper .bottom {
+					display: flow-root;
+				}
+			</style>
+			
+			<table th:fragment="table" id="userTableId"
+				   class="table table-striped table-bordered table-hover dataTable"
+				   dt:table="true"
+				   th:attr="'dt:url'=@{/admin/user/list/data}"
+				   dt:serverside="true"
+				   dt:reloadSelector="#search-button"
+				   dt:filterable="false"
+				   dt:lengthChange="false"
+				   dt:autoWidth="false"
+				   dt:serverParams="dataTableUtility.getExtraParams"
+				   style="width:100%"
+			>
+				<thead class="thead-default">
+					<tr>
+						<!--                    <th dt:property="newsHeader" dt:renderFunction="newsTitleFormat" th:text="#{label.newsTitle}" >Adı</th>-->
+						<th dt:property="username" th:text="#{label.username}">username</th>
+						<th dt:property="name" dt:sortInitDirection="asc" th:text="#{label.name}">name</th>
+						<th dt:property="profileName" th:text="#{label.profile}" dt:sortable="false">profileName</th>
+						<th dt:property="state" dt:sortInitDirection="desc" dt:renderFunction="dataTableUtility.stateFormatter" th:text="#{label.user.state}">state</th>
+						<th dt:property="isDbUser" dt:sortInitDirection="desc" dt:renderFunction="dataTableUtility.stateFormatterIsDbUser" th:text="#{label.isDbUser}">isDbUser</th>
+						<th dt:property="id" th:text="#{label.action}" dt:renderFunction="dataTableUtility.actionFormatter" dt:sortable="false" sec:authorize="hasRole('ROLE_USER_MANAGE')"></th>
+					</tr>
+				</thead>
+			</table>
+			
+		</div>
+		
+		
+		
+	</body>
+</html>

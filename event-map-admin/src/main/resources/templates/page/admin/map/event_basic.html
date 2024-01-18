@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables"
+      lang="en">
+    <head>
+        <title>Tag Template</title>
+    </head>
+    <body layout:fragment="content" >
+    
+        <link th:href="@{/css/user.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+        
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                    <!--begin::Form-->
+                    <form class="advanced-search m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed p-1">
+                        <div class="m-portlet__body">
+                            <div class="form-group m-form__group row">
+                            
+                                <div class="col-lg-3 col-md-4 col-sm-12">
+                                    <label for="search-name" id="event-name-label" th:text="#{label.title}"></label>
+                                    
+                                    <input type="text"  name="title" id="search-name" class="form-control"
+                                           th:placeholder="#{label.title}" aria-labelledby="event-name-label">
+                                </div>
+                                
+                                <div class="col-lg-3 col-md-4 col-sm-12">
+                                    <label for="search-spot" id="event-spot-label" th:text="#{label.event.spot}"></label>
+                                    
+                                    <input type="text"  name="spot" id="search-spot" class="form-control"
+                                           th:placeholder="#{label.event.spot}" aria-labelledby="event-spot-label">
+                                </div>
+                                
+                                
+                                <div class="col-lg-3 col-md-4 col-sm-12">
+                                    <label for="search-description" id="event-description-label" th:text="#{label.event.description}"></label>
+                                    
+                                    <input type="text"  name="description" id="search-description" class="form-control"
+                                           th:placeholder="#{label.event.description}" aria-labelledby="event-description-label">
+                                </div>
+                                
+                                <div class="col-lg-3 col-md-4 col-sm-12">
+                                    <label for="search-city" id="event-city-label" th:text="#{label.city}"></label>
+                                    
+                                    <input type="text"  name="city" id="search-city" class="form-control"
+                                           th:placeholder="#{label.city}" aria-labelledby="event-city-label">
+                                </div>
+                                
+                                <div class="col-lg-3 col-md-4 col-sm-12">
+                                    <label for="search-country" id="event-country-label" th:text="#{label.country}"></label>
+                                    
+                                    <input type="text"  name="country" id="search-country" class="form-control"
+                                           th:placeholder="#{label.country}" aria-labelledby="event-country-label">
+                                </div>
+    
+    							<input type ="hidden" id="excelDownloadEventCount" th:value="${maxCountEventsExcel}"/>
+    							<div class="col-lg-3 col-md-4 col-sm-12 ">
+                                    <label for="layerId" th:text="#{label.layers}"></label>
+                                    <div class="m-select2">
+                                        <select class="form-control m-select2 m_select2_12_4"
+                                                id="layerId"
+                                                name="layerId"
+                                                th:attr="data-placeholder=#{label.layers}">
+                                            <option></option>
+                                            <option th:each="layer : ${layers}"
+                                                    th:value="${layer.id}"
+                                                    th:text="${layer.name}">Options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-3 col-md-4 col-sm-12 ">
+                                    <label for="eventGroupId" th:text="#{label.eventGroups}"></label>
+                                    <div class="m-select2">
+                                        <select class="form-control m-select2 m_select2_12_4"
+                                                id="eventGroupId"
+                                                name="eventGroupId"
+                                                th:attr="data-placeholder=#{label.eventGroups}">
+                                            <option></option>
+                                            <option th:each="eventGroup : ${eventGroups}"
+                                                    th:value="${eventGroup.id}"
+                                                    th:text="${eventGroup.name}">Options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                                                
+                                <div class="col-lg-3 col-md-4 col-sm-12 ">
+                                    <label for="eventTypeId" th:text="#{label.eventTypes}"></label>
+                                    <div class="m-select2">
+                                        <select class="form-control m-select2 m_select2_12_4"
+                                                id="eventTypeId"
+                                                name="eventTypeId"
+                                                th:attr="data-placeholder=#{label.eventTypes}">
+                                            <option></option>
+                                            <option th:each="eventType : ${eventTypes}"
+                                                    th:value="${eventType.id}"
+                                                    th:text="${eventType.name}">Options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-3 col-md-4 col-sm-12">
+                                    <label for="search-blackListTag" id="event-blackListTag-label" th:text="#{label.blackListTag}"></label> 
+                                    
+                                    <input type="text"  name="blackListTag" id="search-blackListTag" class="form-control"
+                                           th:placeholder="#{label.blackListTag}" aria-labelledby="event-blackListTag-label">
+                                </div>
+                                
+                                 <div class="col-lg-3 col-md-4 col-sm-12">
+                                    <label th:text="#{label.state}"></label>
+                                    <div class="m-select2">
+                                        <select class="form-control m-select2 m_select2_12_4"
+                                                name="stateId"
+                                                th:attr="data-placeholder=#{label.state}">
+                                            <option></option>
+                                            <option th:text="#{label.active}" value="2"></option>
+                                            <option th:text="#{label.passive}" value="1"></option>
+                                            <option th:text="#{label.blacklist}" value="3"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-3 col-md-4 col-sm-12 pb-4 datetimePicker">
+									<label th:text="#{label.start.date}"></label>
+									<input type="text" class="form-control dobpicker" th:name="startDateStr" id="startDate"
+										   data-date-default-date="04.June.2020 01:00" placeholder="MM/DD/YYYY" data-date-end-date="-18y"
+										   autocomplete="off">
+								</div>
+								
+								<div class="col-lg-3 col-md-4 col-sm-12 pb-4 datetimePicker">
+									<label th:text="#{label.finish.date}"></label>
+									<input type="text" class="form-control dobpicker" th:name="endDateStr" id="endDate"
+										   data-date-default-date="04.June.2020 01:00" placeholder="MM/DD/YYYY" data-date-end-date="-18y"
+										   autocomplete="off">
+								</div>
+                                
+                            </div>
+                            <div class="form-group m-form__group row justify-content-end">
+                                <div class="col-lg-4" >
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <button type="button" id="search-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r">
+											<span><i class="la la-fw la-search"></i><span th:text="#{label.search}">Arama</span></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="m-portlet__head-tools">
+                                
+                                
+                                 <button type="button" class="btn btn-primary m-btn m-btn--icon mr-3" data-toggle="modal" data-type="add" data-target="#exportExcelModal">
+		                                <span><i class="la la-edit"></i><span th:text="#{label.export.to.excel}"></span></span>
+		                            </button>
+		                            
+                        		</div>   
+                                
+                                 <div class="m-portlet__head-tools" sec:authorize="hasRole('ROLE_EVENT_MANAGE')">
+		                            <button type="button" class="btn btn-primary m-btn m-btn--icon"  data-toggle="modal" data-type="add" data-target="#editModal">
+		                                <span><i class="la la-edit"></i><span th:text="#{label.batch.operations}"></span></span>
+		                            </button>
+                        		</div>
+
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <div class="m-portlet m-portlet--mobile">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text" th:text="#{label.events}"></h3>
+                            </div>
+                        </div>
+                        <div class="m-portlet__head-tools" sec:authorize="hasRole('ROLE_EVENT_MANAGE')">
+                            <a th:href="@{/admin/map/event-basic/add}" class="btn btn-success m-btn m-btn--icon">
+                                <span><i class="la la-fw la-plus"></i><span th:text="#{label.add.new}"></span></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <!--begin: Datatable -->
+                      
+                        <div class="table-container" th:replace="fragments/tables/event_basic_table :: table">
+                        
+
+    
+                        </div>
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+         <div class="modal-container" th:with="modalType= 'eventsBatchOperationsFields', modalKey='aaa'">
+        
+            <div class="edit-modal" th:replace="fragments/modals/map_modals:: editModal"></div>
+    
+        </div>    
+        <div class="modal-container" th:with="modalType= 'exportExcelModal', modalKey='exportExcel'">
+        
+            <div class="edit-modal" th:replace="fragments/modals/export_excel_modal:: exportExcelModal"></div>
+    
+        </div>
+    
+        <script th:src="@{/js/datatable-utility.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/datatable-loader.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        
+        
+        <script th:src="@{/js/admin/map/event-basic-page.js?v=} + ${@environment.getProperty('build.version')}"></script>
+       
+        
+    </body>
+</html>

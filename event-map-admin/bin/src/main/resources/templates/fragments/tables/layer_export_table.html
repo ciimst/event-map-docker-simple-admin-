@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="table">
+			
+			<style>
+				.dataTables_wrapper .bottom {
+					display: flow-root;
+				}
+				
+			</style>
+			
+			<table th:fragment="table" id="layerExportTableId"
+				   class="table table-striped table-bordered table-hover dataTable"
+				   dt:table="true"
+				   th:attr="'dt:url'=@{/admin/map/layer-export/list/data}"
+				   dt:serverside="true"
+				   dt:reloadSelector="#search-button"
+				   dt:filterable="false"
+				   dt:lengthChange="false"
+				   dt:autoWidth="false"
+				   dt:serverParams="dataTableUtility.getExtraParams"
+				   style="width:100%">
+				<thead class="thead-default">
+					<tr>
+						<th dt:property="name" th:text="#{label.export.name}">exportName</th>
+						<th dt:property="layerName" th:text="#{label.layer.name}">layerName</th>
+						<th dt:property="tileServerName" th:text="#{label.tile.name}">layerName</th>
+						<th dt:property="minZ" th:text="#{label.min.zoom.level}">minZ</th>	
+						<th dt:property="maxZ" th:text="#{label.max.zoom.level}">maxZ</th>
+						<th dt:property="createDate" dt:sortInitDirection="desc" dt:renderFunction="createDateFormatter" th:text="#{label.create.date}">createDate</th>
+						<th dt:property="startDate" dt:renderFunction="startDateFormatter" th:text="#{label.start.date}">startDate</th>
+						<th dt:property="finishDate" dt:renderFunction="finishDateFormatter" th:text="#{label.finish.date}">finishDate</th>
+						<th dt:property="id" style="width: 72px;" th:text="#{label.action}" dt:renderFunction="dataTableUtility.actionFormatter" dt:sortable="false"></th>
+					</tr>
+				</thead>
+			</table>
+			
+		</div>
+		
+		
+		
+	</body>
+</html>

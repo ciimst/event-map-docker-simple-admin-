@@ -1,0 +1,4 @@
+ .m-datatable.m-datatable--default.m-datatable--loaded>.m-datatable__table{
+      overflow-x: hidden !important
+      
+      }

@@ -1,0 +1,17 @@
+#password-label.change {
+    cursor: pointer;
+    /*color: blue;*/
+    color:#5867dd;
+}
+#password-label.change.cancel {
+    /*color: crimson;*/
+    color: #f4516c;
+}
+#password-label.change:hover {
+    text-shadow: 0 0 .65px, 0 0 .65px;
+}
+
+#geoLayerTableId div.geoLayer-desc {
+    overflow: auto;
+    max-height: 100px;
+}

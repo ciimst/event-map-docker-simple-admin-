@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="table">
+			
+			
+			<style>
+				.dataTables_wrapper .bottom {
+					display: flow-root;
+				}
+			</style>
+			<table id="profileTableId"
+				   class="table table-striped table-bordered table-hover dataTable"
+				   dt:table="true"
+				   th:attr="'dt:url'=@{/admin/profile/list/data}"
+				   dt:serverside="true"
+				   dt:reloadSelector="#search-button"
+				   dt:filterable="false"
+				   dt:lengthChange="false"
+				   dt:autoWidth="false"
+				   dt:drawCallback="userDrawCallback"
+				   dt:rowCallback="userRowCallback"
+				   dt:serverParams="getExtraParams"
+				   style="width:100%"
+			>
+				<thead class="thead-default">
+					<tr>
+						<!--                    <th dt:property="newsHeader" dt:renderFunction="newsTitleFormat" th:text="#{label.newsTitle}" >Adı</th>-->
+						<th dt:property="name" th:text="#{label.profile.name}" >profileName</th>
+						<th dt:property="description" th:text="#{label.description}" >description</th>
+						<th dt:property="userCount" th:text="#{label.user.count}" dt:sortable="false">userCount</th>
+						<th dt:property="id" th:text="#{label.action}" dt:renderFunction="actionFormatter" dt:sortable="false" sec:authorize="hasRole('ROLE_PROFILE_MANAGE')"></th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      lang="en">
+    <head>
+        <title>Map Area template</title>
+    </head>
+    <body layout:fragment="content" >
+        
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                    <!--begin::Form-->
+                    <form class="advanced-search m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed p-1">
+                        <div class="m-portlet__body">
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label for="search-title" id="map-area-title-label" th:text="#{label.title}"></label>
+                                    <input type="text"  name="title" id="search-title" class="form-control"
+                                           th:placeholder="#{label.title}" aria-labelledby="map-area-title-label">
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label for="mapAreaGroupId" th:text="#{label.mapAreaGroups}"></label>
+                                    <div class="m-select2">
+                                        <select class="form-control m-select2 m_select2_12_4"
+                                                id="mapAreaGroupId"
+                                                name="mapAreaGroupId"
+                                                th:attr="data-placeholder=#{label.mapAreaGroups}">
+                                            <option></option>
+                                            <option th:each="mapAreaGroup : ${mapAreaGroups}"
+                                                    th:value="${mapAreaGroup.id}"
+                                                    th:text="${mapAreaGroup.name}">Options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group m-form__group row justify-content-end">
+                                <div class="col-lg-4" >
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <button type="button" id="search-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r">
+                                            <span><i class="la la-fw la-search"></i><span th:text="#{label.search}">Arama</span></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <div class="m-portlet m-portlet--mobile">
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text" th:text="#{label.map_area}"></h3>
+                            </div>
+                        </div>
+                        <div class="m-portlet__head-tools" sec:authorize="hasRole('ROLE_MAP_AREA_MANAGE')">
+                            <a th:href="@{/admin/map/map-area/add}" class="btn btn-success m-btn m-btn--icon">
+                                <span><i class="la la-fw la-plus"></i><span th:text="#{label.add.new}"></span></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="m-portlet__body">
+                        <!--begin: Datatable -->
+                        
+                        <div class="table-container" th:replace="fragments/tables/map_area_table :: table">
+                        
+                        </div>
+                        <!--end: Datatable -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-container">
+        
+        </div>
+        
+        <script th:src="@{/js/datatable-loader.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        
+<!--        //TODO:yeni sayfa da edit / save -->
+        <script th:src="@{/js/datatable-utility.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        
+        <script th:src="@{/js/admin/map/map-area-page.js?v=} + ${@environment.getProperty('build.version')}"></script>
+    
+    
+    </body>
+</html>

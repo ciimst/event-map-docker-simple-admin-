@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  >
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="eventLinkDocumentModal">
+			
+			<div class="modal fade" id="eventLinkDocumentModal" role="dialog" aria-labelledby="eventLinkDocumentModal" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					
+						<div class="modal-header">
+							<h5 class="modal-title" id="eventLinkDocumentModalLabel" th:text="#{label.event.link.document}"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						
+						<div class="pt-2 ml-4">
+							<p>
+								Aşağıda linke eklenebilecek anahtar kelimeler listelenmektedir.
+							</p>
+							<div class="col-sm-12 p-2">
+								<label for="link" id="data-label" >Örnek Link:</label>
+								<p>https://localhost:8081/admin/map/event-link?id={id}&spot={spot}</p>
+							</div>	
+						</div>
+						
+						<div class="modal-body">
+							<div class="container">
+														
+  			                   <table class="table">
+								  <thead>
+								    <tr>    
+								      <th scope="col"></th>
+								      <th scope="col">Anahtar Kelimeler</th>
+								      <th scope="col"></th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								  
+								    <tr>							     
+								      <td>{id}</td>
+								      <td>{title}</td>
+								      <td>{spot}</td>
+								    </tr>
+								    
+								    <tr>								      
+								      <td>{description}</td>
+								      <td>{eventDate}</td>
+								      <td>{eventType}</td>
+								    </tr>
+								    
+								    <tr>							    
+								      <td>{country}</td>
+								      <td>{city}</td>
+								      <td>{latitude}</td>
+								    </tr>
+								     <tr>								    
+								      <td>{longitude}</td>
+								      <td>{eventGroup}</td>
+								      <td>{state}</td>
+								    </tr>
+								    
+								    
+								     <tr>								    
+								      <td>{reservedKey}</td>
+								      <td>{reservedType}</td>
+								      <td>{reservedId}</td>
+								    </tr>
+								    
+								    <tr>								    
+								      <td>{reservedLink}</td>
+								      <td>{layer}</td>
+								       <td>{blackListTag}</td>
+								    </tr>
+								    
+								    
+								    <tr>								    
+								     
+								      <td>{reserved1}</td>
+								      <td>{reserved2}</td>
+								      <td>{reserved3}</td>
+								    </tr>
+								    
+								    
+								    <tr>								    
+								      
+								      <td>{reserved4}</td>
+								      <td>{reserved5}</td>
+								    </tr>
+								    								 
+								  </tbody>
+								</table>	
+								
+													
+							</div>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{label.close}">Close</button>
+<!-- 							<button type="button" id="excel-save-btn" class="btn btn-primary" th:text="#{label.save}">Save</button> -->
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

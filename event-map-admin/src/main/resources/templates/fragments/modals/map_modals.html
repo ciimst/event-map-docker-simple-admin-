@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  >
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="editModal">
+			
+			<div class="modal fade" id="editModal" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="editModalLabel" th:text="#{label.tile.edit}"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<input type="hidden" id="id" name="id">
+								
+								<div th:replace="fragments/modals/map_modals :: ${modalType}">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{label.close}">Close</button>
+							<button type="button" id="layer-save-btn" class="btn btn-primary" th:text="#{label.save}">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div th:fragment="layerEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>
+			
+			<div class="col-sm-12 p-2">
+				<span class="col-9 pl-0" th:text="#{label.state}"></span>
+				<span class="col-3 custom-sw m-switch m-switch--sm m-switch--primary">
+					<label>
+						<input type="checkbox" id="state" name="state" value="true">
+						<span></span>
+					</label>
+				</span>
+			</div>
+		</div>
+		
+		<div th:fragment="tileEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>
+			
+			<div class="col-sm-12 p-2">
+				<label for="url" id="url-label" th:text="#{label.url}"></label>
+				<input type="text" name="url" id="url" class="form-control"
+					   th:placeholder="#{label.url}" aria-labelledby="full-name-label">
+			</div>
+			
+			<div class="col-sm-12 p-2">
+				<label for="sortOrder" id="sortOrder-label" th:text="#{label.order}"></label>
+				<input type="text" name="sortOrder" id="sortOrder" class="form-control"
+					   th:placeholder="sortOrder" aria-labelledby="full-name-label">
+			</div>
+			
+			<div class="col-sm-12 p-2">
+				<span class="col-9 pl-0" th:text="#{label.state}"></span>
+				<span class="col-3 custom-sw m-switch m-switch--sm m-switch--primary">
+					<label>
+						<input type="checkbox" id="state" name="state">
+						<span></span>
+					</label>
+				</span>
+			</div>
+			
+			
+		</div>
+		
+	  	<div th:fragment="eventGroupEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>
+
+			
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.layer}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="layerId" id="modalLayerId"
+                             th:attr="data-placeholder=#{label.layer}">
+                         <option></option>
+                         <option th:each="layer : ${layers}"
+                                 th:value="${layer.id}"
+                                 th:text="${layer.name}">Options</option>
+                     </select>
+                 </div>
+             </div>
+             
+             <div class="col-sm-12 p-2">
+                 <label th:text="#{label.parent.group.name}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="parentId" id="modalParentId"
+                             th:attr="data-placeholder=#{label.parent.group.name}">
+                         <option></option>
+                         <option th:each="eventGroup : ${eventGroups}"
+                                 th:value="${eventGroup.id}"
+                                 th:text="${eventGroup.name}">Options</option>
+                     </select>
+                 </div>
+             </div>
+             
+			<div class="col-sm-12 p-2">
+				<label for="color" id="color-label" th:text="#{label.color}"></label>
+				<span class="color-picker form-control">
+				
+				    <input type="color" name="color" value="#823fc6" id="colorPicker" >
+				    <span  id="colorText" name="color"></span>
+				 
+				</span>
+			</div>
+
+            <div class="col-sm-12 p-2">
+                <label th:text="#{label.description}"></label>
+
+				<div class="form-control px-0 py-0">
+					<div class="document-editor__toolbar"></div>
+					<textarea cols="10" id="description" name="description" rows="10" data-sample-short></textarea>
+ 
+				  </div>
+			</div>
+
+
+
+		</div>
+		
+		<div th:fragment="mapAreaGroupEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>
+			<div class="col-sm-12 p-2">
+				<label for="color" id="color-label" th:text="#{label.color}"></label>
+				<span class="color-picker form-control">
+				
+				    <input type="color" name="color" value="#823fc6" id="colorPicker" >
+				    <span  id="colorText" name="color"></span>
+				 
+				</span>
+			</div>
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.layer}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="layerId" id="layerId"
+                             th:attr="data-placeholder=#{label.layer}">
+                         <option></option>
+                         <option th:each="layer : ${layers}"
+                                 th:value="${layer.id}"
+                                 th:text="${layer.name}">Options</option>
+                     </select>
+                 </div>
+             </div>
+		</div>
+		
+		<div th:fragment="tagEditFields">			
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>			
+		</div>
+		
+		<div th:fragment="blackListEditFields">
+				
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<span style="color:red"> *</span>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>		
+			<div class="col-sm-12 p-2" id="generalTagDiv">
+				<label for="tag" id="tag-label" th:text="#{label.tag}"></label>  
+				<span style="color:red"> *</span>		
+				<input type="text" name="inputTag" id="inputTag" class="form-control"
+												   th:placeholder="#{label.tag}" aria-labelledby="full-tag-label">								
+				<textarea cols="10" id="textareaTag" name="textareaTag" class="form-control" rows="10" data-sample-short></textarea>				 
+				
+			</div>		   
+			<div class="col-sm-12 p-2" id="generalLayerDiv">
+                 <label th:text="#{label.layer}"></label>
+                 <span style="color:red"> *</span>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="layerId" id="modalLayerId"
+                             th:attr="data-placeholder=#{label.layer}">
+                         <option></option>
+                         <option th:each="layer : ${layers}"
+                                 th:value="${layer.id}"
+                                 th:text="${layer.name}">Options</option>
+                     </select>
+                 </div>
+             </div>    
+              <div class="col-sm-12 p-2 " id="generalEventGroupDiv">
+                 <label for="eventGroupId" th:text="#{label.eventGroups}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             id="modalEventGroupId"
+                             name="eventGroupId"
+                             th:attr="data-placeholder=#{label.eventGroups}">
+                         <option></option>
+                         <option th:each="eventGroup : ${eventGroups}"
+                                 th:value="${eventGroup.id}"
+                                 th:text="${eventGroup.name}">Options</option>
+                     </select>
+                 </div>
+             </div>     
+             <div class="col-sm-12 p-2 " id="generalEventTypeDiv">
+                 <label for="eventTypeId" th:text="#{label.eventTypes}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             id="eventTypeId"
+                             name="eventTypeId"
+                             th:attr="data-placeholder=#{label.eventTypes}">
+                         <option></option>
+                         <option th:each="eventType : ${eventTypes}"
+                                 th:value="${eventType.id}"
+                                 th:text="${eventType.name}">Options</option>
+                     </select>
+                 </div>
+             </div>     
+             <div class="col-sm-12 p-2">
+				<span class="col-9 pl-0" th:text="#{label.state}"></span>
+				<span class="col-3 custom-sw m-switch m-switch--sm m-switch--primary">
+					<label>
+						<input type="checkbox" id="state" name="state" value="true">
+						<span></span>
+					</label>
+				</span>
+			</div>   			
+		</div>
+		
+		<div th:fragment="eventNewEditFields">			
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>			
+		</div>
+		
+		<div th:fragment="userLayerPermissionEditFields">
+			
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.user}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="userId" id="modalUserId"
+                             th:attr="data-placeholder=#{label.user}">
+                         <option></option>
+                         <option th:each="user : ${users}"
+                                 th:value="${user.id}"
+                                 th:text="${user.username}">Options</option>
+                     </select>
+                 </div>
+             </div>
+
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.layer}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="layerId" id="modalLayerId"
+                             th:attr="data-placeholder=#{label.layer}">
+                         <option></option>
+                         <option th:each="layer : ${layers}"
+                                 th:value="${layer.id}"
+                                 th:text="${layer.name}">Options</option>
+                     </select>
+                 </div>
+             </div>
+		</div>
+		
+		<div th:fragment="userEventGroupPermissionEditFields">
+			
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.user}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="userId" id="modalUserId"
+                             th:attr="data-placeholder=#{label.user}">
+                         <option></option>
+                         <option th:each="user : ${users}"
+                                 th:value="${user.id}"
+                                 th:text="${user.username}">Options</option>
+                     </select>
+                 </div>
+             </div>
+
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.layer}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="layerId" id="modalLayerId"
+                             th:attr="data-placeholder=#{label.layer}">
+                         <option></option>
+                         <option th:each="layer : ${layers}"
+                                 th:value="${layer.id}"
+                                 th:text="${layer.name}">Options</option>
+                     </select>
+                 </div>
+             </div>
+             
+             <div class="col-sm-12 p-2">
+                 <label th:text="#{label.event.group}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="eventGroupId" id="modalEventGroupId"
+                             th:attr="data-placeholder=#{label.event.group}">
+                         <option></option>
+                         <option th:each="eventGroup : ${eventGroups}"
+                                 th:value="${eventGroup.id}"
+                                 th:text="${eventGroup.name}">Options</option>
+                     </select>
+                 </div>
+             </div>
+		</div>
+		
+		<div th:fragment="userGroupIdEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="groupId" id="groupId-label" th:text="#{label.groupId}"></label>
+				<input type="text" name="groupId" id="groupId" class="form-control"
+					   th:placeholder="#{label.groupId}" aria-labelledby="full-groupId-label">
+			</div>
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.user}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="userId" id="userId"
+                             th:attr="data-placeholder=#{label.user}">
+                         <option></option>
+                         <option th:each="user : ${users}"
+                                 th:value="${user.id}"
+                                 th:text="${user.username}">Options</option>
+                     </select>
+                 </div>
+             </div>
+		</div>
+		<div th:fragment="userUserIdEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="userId" id="userId-label" th:text="#{label.userId}"></label>
+				<input type="text" name="userId" id="userId" class="form-control"
+					   th:placeholder="#{label.userId}" aria-labelledby="full-userId-label">
+			</div>
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.user}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="fk_userId" id="fk_userId"
+                             th:attr="data-placeholder=#{label.user}">
+                         <option></option>
+                         <option th:each="user : ${users}"
+                                 th:value="${user.id}"
+                                 th:text="${user.username}">Options</option>
+                     </select>
+                 </div>
+             </div>
+		</div>
+		<div th:fragment="geoLayerEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="name" id="name-label" th:text="#{label.name}"></label>
+				<input type="text" name="name" id="name" class="form-control"
+					   th:placeholder="#{label.name}" aria-labelledby="full-name-label">
+			</div>
+			<div class="col-sm-12 p-2">
+				<label for="data" id="data-label" th:text="#{label.data}"></label>
+				<input type="text" name="data" id="data" class="form-control"
+					   th:placeholder="#{label.data}" aria-labelledby="full-data-label">
+			</div>			
+			<div class="col-sm-12 p-2">
+                 <label th:text="#{label.layer}"></label>
+                 <div class="m-select2">
+                     <select class="form-control m-select2 m_select2_12_4"
+                             name="layerId" id="layerId"
+                             th:attr="data-placeholder=#{label.layer}">
+                         <option></option>
+                         <option th:each="layer : ${layers}"
+                                 th:value="${layer.id}"
+                                 th:text="${layer.name}">Options</option>
+                     </select>
+                 </div>
+             </div>             			
+			<div class="col-sm-12 p-2">
+				<span class="col-9 pl-0" th:text="#{label.state}"></span>
+				<span class="col-3 custom-sw m-switch m-switch--sm m-switch--primary">
+					<label>
+						<input type="checkbox" id="state" name="state" value="true">
+						<span></span>
+					</label>
+				</span>
+			</div>
+		</div>
+		
+		
+		<div th:fragment="eventsBatchOperationsFields">
+			       			
+			<div class="col-sm-12 p-2">
+				<span class="col-9 pl-0" th:text="#{label.state}"></span>
+				<span class="col-3 custom-sw m-switch m-switch--sm m-switch--primary">
+					<label>
+						<input type="checkbox" id="eventBatchOperationsState" name="state" value="true">
+						<span></span>
+					</label>
+				</span>
+			</div>
+			
+			<div class="col-sm-12 p-2">
+				<p>
+                   <span><span style="float: left" id="eventBatchOperationsInfo" class="col-9 pl-0" ></span></span>
+                </p>
+			</div>
+		</div>
+		
+		<div th:fragment="eventLinkEditFields">
+			
+			<div class="col-sm-12 p-2">
+				<label for="link" id="data-label" th:text="#{label.display.name}"></label>
+				<input type="text" name="displayName" id="displayName" class="form-control"
+					   th:placeholder="#{label.display.name}" aria-labelledby="full-data-label">
+			</div>	
+			
+		 	<div class="col-sm-12 p-2 " id="generalEventLinkDiv">
+              <label for="eventColumnId" th:text="#{label.event.columns}"></label>
+              <div class="m-select2">
+                  <select class="form-control m-select2 m_select2_12_4"
+                  		  id="modalEventColumnId"
+                          name="eventColumnId"
+                          th:attr="data-placeholder=#{label.event.columns}">
+                      		<option></option>
+                            <option th:each="eventColumn : ${eventColumns}"
+                                  	th:value="${eventColumn.id}"     
+                                    th:text="(${eventColumn.name == 'RESERVED1'} ?  @{ ${ @environment.getProperty('using.helm.config') == 'false' } ? ${T(com.imst.event.map.admin.utils.MyStringUtils).toUTF8( @environment.getProperty('event.reserved1') ) } : ${ @environment.getProperty('event.reserved1') } } : 
+									(${eventColumn.name == 'RESERVED2'} ?  @{ ${ @environment.getProperty('using.helm.config') == 'false' } ? ${T(com.imst.event.map.admin.utils.MyStringUtils).toUTF8( @environment.getProperty('event.reserved2') ) } : ${ @environment.getProperty('event.reserved2') } } : 			 
+									(${eventColumn.name == 'RESERVED3'} ?  @{ ${ @environment.getProperty('using.helm.config') == 'false' } ? ${T(com.imst.event.map.admin.utils.MyStringUtils).toUTF8( @environment.getProperty('event.reserved3') ) } : ${ @environment.getProperty('event.reserved3') } } : 
+									(${eventColumn.name == 'RESERVED4'} ?  @{ ${ @environment.getProperty('using.helm.config') == 'false' } ? ${T(com.imst.event.map.admin.utils.MyStringUtils).toUTF8( @environment.getProperty('event.reserved4') ) } : ${ @environment.getProperty('event.reserved4') } } : 
+									(${eventColumn.name == 'RESERVED5'} ?  @{ ${ @environment.getProperty('using.helm.config') == 'false' } ? ${T(com.imst.event.map.admin.utils.MyStringUtils).toUTF8( @environment.getProperty('event.reserved5') ) } : ${ @environment.getProperty('event.reserved5') } } : #{label + '.' + ${eventColumn.name}})))))">Options</option>
+
+                  </select>
+              </div>
+        	</div>   
+        	
+        	
+        	<div class="col-sm-12 p-2">
+				<label for="link" id="data-label" th:text="#{label.link}"></label>
+				<input type="text" name="link" id="link" class="form-control"
+					   th:placeholder="#{label.link}" aria-labelledby="full-data-label">
+			</div>	
+			
+			<div class="col-sm-12 p-2">
+				<label for="color" id="color-label" th:text="#{label.color}"></label>
+				<span class="color-picker form-control">
+				
+				    <input type="color" name="color" value="#823fc6" id="colorPicker" >
+				    <span  id="colorText" name="color"></span>
+				 
+				</span>
+			</div>
+			
+			<div class="col-sm-12 p-2">
+				<button class="btn btn-primary float-right" data-toggle="modal" data-target="#eventLinkDocumentModal">Döküman</button>
+			</div>	
+			
+         </div>  
+
+		
+	</body>
+</html>

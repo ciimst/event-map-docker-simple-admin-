@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	
+</head>
+<body>
+	<div th:fragment="sidebar" th:remove="tag">
+		<!-- BEGIN: Left Aside -->
+		<button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
+			<i class="la la-close"></i>
+		</button>
+		<div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+			<!-- BEGIN: Aside Menu -->
+			<div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " 
+				data-menu-vertical="true" data-menu-scrollable="true" data-menu-dropdown-timeout="500">
+				<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow " id="sidebarMenu">
+<!-- 					<li class="m-menu__item  m-menu__item--active" aria-haspopup="true" > -->
+<!-- 						<a  href="/admin/user" class="m-menu__link "> -->
+<!-- 							<i class="m-menu__link-icon flaticon-line-graph"></i> -->
+<!-- 							<span class="m-menu__link-title"> -->
+<!-- 								<span class="m-menu__link-wrap"> -->
+<!-- 									<span class="m-menu__link-text"> -->
+<!-- 										Dashboard -->
+<!-- 									</span> -->
+<!-- 									<span class="m-menu__link-badge"> -->
+<!-- 										<span class="m-badge m-badge--danger"> -->
+<!-- 											2 -->
+<!-- 										</span> -->
+<!-- 									</span> -->
+<!-- 								</span> -->
+<!-- 							</span> -->
+<!-- 						</a> -->
+<!-- 					</li> -->
+					<li class="m-menu__section">
+						<h4 class="m-menu__section-text" th:text="#{label.Fields}">
+							Alanlar
+						</h4>
+						<i class="m-menu__section-icon flaticon-more-v3"></i>
+					</li>
+<!-- 					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover"> -->
+<!-- 						<a  href="#" class="m-menu__link m-menu__toggle"> -->
+<!-- 							<i class="m-menu__link-icon flaticon-layers"></i> -->
+<!-- 							<span class="m-menu__link-text"> -->
+<!-- 								Yönetim -->
+<!-- 							</span> -->
+<!-- 							<i class="m-menu__ver-arrow la la-angle-right"></i> -->
+<!-- 						</a> -->
+<!-- 						<a  href="#" class="m-menu__link m-menu__toggle"> -->
+<!-- 							<i class="m-menu__link-icon flaticon-layers"></i> -->
+<!-- 							<span class="m-menu__link-text"> -->
+<!-- 								Yönetim2 -->
+<!-- 							</span> -->
+<!-- 							<i class="m-menu__ver-arrow la la-angle-right"></i> -->
+<!-- 						</a> -->
+<!-- 						<a  href="#" class="m-menu__link m-menu__toggle"> -->
+<!-- 							<i class="m-menu__link-icon flaticon-layers"></i> -->
+<!-- 							<span class="m-menu__link-text"> -->
+<!-- 								Yönetim3 -->
+<!-- 							</span> -->
+<!-- 							<i class="m-menu__ver-arrow la la-angle-right"></i> -->
+<!-- 						</a> -->
+<!-- 						<div class="m-menu__submenu"> -->
+<!-- 							<span class="m-menu__arrow"></span> -->
+<!-- 							<ul class="m-menu__subnav"> -->
+<!-- 								<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" > -->
+<!-- 									<a  href="#" class="m-menu__link "> -->
+<!-- 										<span class="m-menu__link-text"> -->
+<!-- 											Yönetim -->
+<!-- 										</span> -->
+<!-- 									</a> -->
+<!-- 								</li> -->
+<!-- 								<li class="m-menu__item " aria-haspopup="true" > -->
+<!-- 									<a  th:href="@{/list}" class="m-menu__link "> -->
+<!-- 										<i class="m-menu__link-bullet m-menu__link-bullet--dot"> -->
+<!-- 											<span></span> -->
+<!-- 										</i> -->
+<!-- 										<span class="m-menu__link-text"> -->
+<!-- 											Listeleme -->
+<!-- 										</span> -->
+<!-- 									</a> -->
+<!-- 								</li> -->
+<!-- 								<li class="m-menu__item " aria-haspopup="true" > -->
+<!-- 									<a  href="/admin/user/" class="m-menu__link "> -->
+<!-- 										<i class="m-menu__link-bullet m-menu__link-bullet--dot"> -->
+<!-- 											<span></span> -->
+<!-- 										</i> -->
+<!-- 										<span class="m-menu__link-text"> -->
+<!-- 											Kullanıcılar -->
+<!-- 										</span> -->
+<!-- 									</a> -->
+<!-- 								</li> -->
+<!-- 								<li class="m-menu__item " aria-haspopup="true" > -->
+<!-- 									<a  href="/admin/profile/" class="m-menu__link "> -->
+<!-- 										<i class="m-menu__link-bullet m-menu__link-bullet--dot"> -->
+<!-- 											<span></span> -->
+<!-- 										</i> -->
+<!-- 										<span class="m-menu__link-text"> -->
+<!-- 											Profil -->
+<!-- 										</span> -->
+<!-- 									</a> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+
+
+					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover" id="userOpenLi"  sec:authorize="hasAnyRole('ROLE_USER_LIST', 'ROLE_PROFILE_LIST')">
+						<a  href="#" class="m-menu__link m-menu__toggle">
+							<i class="m-menu__link-icon flaticon-users"></i>
+							<span class="m-menu__link-text" th:text="#{label.user}">
+								Kullanıcı
+							</span>
+							<i class="m-menu__ver-arrow la la-angle-right"></i>
+						</a>
+								
+						<div class="m-menu__submenu" id="openMenuDivItem">
+							<span class="m-menu__arrow"></span>
+							<ul class="m-menu__subnav">	
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_USER_LIST')">
+									<a th:href="@{/admin/user/}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-users"></i> 
+										<span class="m-menu__link-text active" th:text="#{label.user}"> Kullanıcı </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_PROFILE_LIST')">
+									<a th:href="@{/admin/profile/}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-profile"></i> 
+										<span class="m-menu__link-text" th:text="#{label.profile}"> Profil </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_USER_LAST_PAGE_LIST')">
+									<a th:href="@{/admin/map/userLastPage/}" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-information" ></i>
+										<span class="m-menu__link-text" th:text="#{label.userLastPage}"> User Last Page</span>
+									</a>
+								</li>
+								
+								
+							</ul>
+						</div>
+					</li>				
+					
+					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover"  id="mapOpenLi" sec:authorize="hasAnyRole('ROLE_EVENT_LIST', 'ROLE_EVENT_GROUP_LIST', 'ROLE_EVENT_TYPE_LIST', 'ROLE_MAP_AREA_LIST', 'ROLE_MAP_AREA_GROUP_LIST', 'ROLE_LAYER_LIST', 'ROLE_GEO_LAYER_LIST', 'ROLE_TILE_SERVER_LIST', 'ROLE_EVENT_TAG_LIST')"> 
+						<a  href="#" class="m-menu__link m-menu__toggle">
+							<i class="m-menu__link-icon flaticon-location"></i>
+							<span class="m-menu__link-text" th:text="#{label.map}">
+								Harita
+							</span>
+							<i class="m-menu__ver-arrow la la-angle-right"></i>
+						</a>
+								
+						<div class="m-menu__submenu" id="openMenuDivItem">
+							<span class="m-menu__arrow"></span>
+							<ul class="m-menu__subnav">
+								
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_EVENT_LIST')">
+									<a th:href="@{/admin/map/event-basic/}" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-information"></i> 
+										<span class="m-menu__link-text" th:text="#{label.event}"> Olay </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_EVENT_GROUP_LIST')">
+									<a th:href="@{/admin/map/eventgroup}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-pie-chart"></i> 
+										<span class="m-menu__link-text" th:text="#{label.eventGroups}"> Olay Grupları </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_EVENT_TYPE_LIST')">
+									<a th:href="@{/admin/map/event-type/}" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-pie-chart"></i>
+										<span class="m-menu__link-text" th:text="#{label.eventTypes}" > Olay Türleri </span>
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_MAP_AREA_LIST')">
+									<a th:href="@{/admin/map/map-area/}" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-layers" ></i>
+										<span class="m-menu__link-text" th:text="#{label.mapArea}"> Harita Alanı </span>
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_MAP_AREA_GROUP_LIST')">
+									<a th:href="@{/admin/map/mapareagroup}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-pie-chart"></i> 
+										<span class="m-menu__link-text" th:text="#{label.mapAreaGroups}"> Harita Alanı Grupları </span>
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_LAYER_LIST')">
+									<a th:href="@{/admin/map/layer}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-layers"></i> 
+										<span class="m-menu__link-text" th:text="#{label.layer}"> Katman </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_FAKE_LAYER_ID_LIST')">
+									<a th:href="@{/admin/map/fake-layer-id}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-layers"></i> 
+										<span class="m-menu__link-text" th:text="#{label.fake.layer.role.id}"> Fake Layer Id </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_GEO_LAYER_LIST')" >
+									<a th:href="@{/admin/map/geolayer}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-layers"></i> 
+										<span class="m-menu__link-text" th:text="#{label.geoLayer}"> Coğrafi Katman</span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_TILE_SERVER_LIST')">
+									<a th:href="@{/admin/map/tile}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-location"></i> 
+										<span class="m-menu__link-text" th:text="#{label.tile_server}"> Harita Altlığı </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_EVENT_TAG_LIST')">
+									<a th:href="@{/admin/map/tag}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-delete"></i> 
+										<span class="m-menu__link-text" th:text="#{label.tag}"> Etiket </span> 
+									</a>
+								</li>	
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_EVENT_LINK_LIST')">
+									<a th:href="@{/admin/map/event-link/}" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-information"></i> 
+										<span class="m-menu__link-text" th:text="#{label.event.links}"> Olay Linkleri</span> 
+									</a>
+								</li>	
+								
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_ALERT_LIST')">
+									<a th:href="@{/admin/map/alert/}" class="m-menu__link m-menu__toggle">
+										<i class="m-menu__link-icon flaticon-bell" ></i>
+										<span class="m-menu__link-text" th:text="#{label.alert}"> Alarm </span>
+									</a>
+								</li>
+																					
+							</ul>
+						</div>
+					</li>
+										
+					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover"  id="permissionOpenLi" sec:authorize="hasAnyRole('ROLE_USER_LAYER_PERMISSION_LIST', 'ROLE_USER_EVENT_GROUP_PERMISSION_LIST', 'ROLE_USER_GROUP_ID_LIST', 'ROLE_USER_USER_ID_LIST')">
+						<a  href="#" class="m-menu__link m-menu__toggle">
+							<i class="m-menu__link-icon flaticon-layers"></i>
+							<span class="m-menu__link-text" th:text="#{label.permissions}">
+								İzinler
+							</span>
+							<i class="m-menu__ver-arrow la la-angle-right"></i>
+						</a>
+								
+						<div class="m-menu__submenu" id="openMenuDivItem">
+							<span class="m-menu__arrow"></span>
+							<ul class="m-menu__subnav">								
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_USER_LAYER_PERMISSION_LIST')">
+									<a th:href="@{/admin/map/userlayerpermission}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-delete"></i> 
+										<span class="m-menu__link-text" th:text="#{label.userLayerPermissions}"> Kullanıcı Katman İzinleri</span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_USER_EVENT_GROUP_PERMISSION_LIST')">
+									<a th:href="@{/admin/map/usereventgrouppermission}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-delete"></i> 
+										<span class="m-menu__link-text" th:text="#{label.userEventGroupPermissions}"> Kullanıcı Olay Grup İzinleri</span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_USER_GROUP_ID_LIST')">
+									<a th:href="@{/admin/map/usergroupid}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-delete"></i> 
+										<span class="m-menu__link-text" th:text="#{label.user.group.id}"> Kullanıcı Grup Id</span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_USER_USER_ID_LIST')">
+									<a th:href="@{/admin/map/useruserid}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-delete"></i> 
+										<span class="m-menu__link-text" th:text="#{label.user.user.Id}"> Kullanıcı User Id</span> 
+									</a>
+								</li>																	
+							</ul>
+						</div>
+					</li>
+					
+					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover" id="settingsOpenLi" sec:authorize="hasAnyRole('ROLE_LOG_LIST', 'ROLE_MANAGE_SETTINGS', 'ROLE_ENCRYPT_MANAGE', 'ROLE_BLACK_LIST_LIST')">
+						<a  href="#" class="m-menu__link m-menu__toggle">
+							<i class="m-menu__link-icon flaticon-settings"></i>
+							<span class="m-menu__link-text" th:text="#{label.settings}">
+								Ayarlar
+							</span>
+							<i class="m-menu__ver-arrow la la-angle-right"></i>
+						</a>
+								
+						<div class="m-menu__submenu" id="openMenuDivItem">
+							<span class="m-menu__arrow"></span>
+							<ul class="m-menu__subnav">
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasRole('ROLE_LOG_LIST')">
+									<a th:href="@{/admin/logs}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-folder-1"></i> 
+										<span class="m-menu__link-text" th:text="#{label.log}"> Log </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasRole('ROLE_MANAGE_SETTINGS')">
+									<a th:href="@{/admin/settings/}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-settings"></i> 
+										<span class="m-menu__link-text" th:text="#{label.settings}"> Ayarlar </span> 
+									</a>
+								</li>	
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasRole('ROLE_ENCRYPT_MANAGE')">
+									<a th:href="@{/admin/encrypt-decrypt/}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-lock"></i>
+										<span class="m-menu__link-text" th:text="#{label.encryptionprocess}"> Şifreleme İşlemi </span> 
+									</a>
+								</li>		
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_BLACK_LIST_LIST')">
+									<a th:href="@{/admin/map/blacklist}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-delete"></i> 
+										<span class="m-menu__link-text" th:text="#{label.blacklist}"> Black List </span> 
+									</a>
+								</li>	
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_DATATABASE_DUMP_MANAGE')">
+									<a th:href="@{/admin/map/dumps/}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-download"></i> 
+										<span class="m-menu__link-text" th:text="#{label.DatabaseBackupPage}"> Veritabanı Yedekleme </span> 
+									</a>
+								</li>																									
+							</ul>
+						</div>
+					</li>
+					
+					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover" id="exportOpenLi" sec:authorize="hasAnyRole('ROLE_LAYER_EXPORT_LIST', 'ROLE_TILE_EXPORT_LIST')">
+						<a  href="#" class="m-menu__link m-menu__toggle">
+							<i class="m-menu__link-icon flaticon-layers"></i>
+							<span class="m-menu__link-text" th:text="#{label.exports}">
+								Exportlar
+							</span>
+							<i class="m-menu__ver-arrow la la-angle-right"></i>
+						</a>
+								
+						<div class="m-menu__submenu" id="openMenuDivItem">
+							<span class="m-menu__arrow"></span>
+							<ul class="m-menu__subnav">															
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover" sec:authorize="hasAnyRole('ROLE_LAYER_EXPORT_LIST')">
+									<a th:href="@{/admin/map/layer-export}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-layers"></i> 
+										<span class="m-menu__link-text" th:text="#{label.layer.export}"> Katman Export </span> 
+									</a>
+								</li>
+								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover"  sec:authorize="hasAnyRole('ROLE_TILE_EXPORT_LIST')">
+									<a th:href="@{/admin/map/tile-export}" class="m-menu__link m-menu__toggle"> 
+										<i class="m-menu__link-icon flaticon-location"></i> 
+										<span class="m-menu__link-text" th:text="#{label.tile.export}"> Tile Export </span> 
+									</a>
+								</li>		
+							</ul>
+						</div>
+					</li>
+
+					
+<!-- 					<li class="m-menu__section"> -->
+<!-- 						<h4 class="m-menu__section-text"> -->
+<!-- 							Snippets -->
+<!-- 						</h4> -->
+<!-- 						<i class="m-menu__section-icon flaticon-more-v3"></i> -->
+<!-- 					</li> -->
+<!-- 					<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover"> -->
+<!-- 						<a  href="#" class="m-menu__link m-menu__toggle"> -->
+<!-- 							<i class="m-menu__link-icon flaticon-suitcase"></i> -->
+<!-- 							<span class="m-menu__link-text"> -->
+<!-- 								Custom Pages -->
+<!-- 							</span> -->
+<!-- 							<i class="m-menu__ver-arrow la la-angle-right"></i> -->
+<!-- 						</a> -->
+<!-- 						<div class="m-menu__submenu"> -->
+<!-- 							<span class="m-menu__arrow"></span> -->
+<!-- 							<ul class="m-menu__subnav"> -->
+<!-- 								<li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" > -->
+<!-- 									<a  href="#" class="m-menu__link "> -->
+<!-- 										<span class="m-menu__link-text"> -->
+<!-- 											Custom Pages -->
+<!-- 										</span> -->
+<!-- 									</a> -->
+<!-- 								</li> -->
+<!-- 								<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover"> -->
+<!-- 									<a  href="#" class="m-menu__link m-menu__toggle"> -->
+<!-- 										<i class="m-menu__link-bullet m-menu__link-bullet--dot"> -->
+<!-- 											<span></span> -->
+<!-- 										</i> -->
+<!-- 										<span class="m-menu__link-text"> -->
+<!-- 											User -->
+<!-- 										</span> -->
+<!-- 										<i class="m-menu__ver-arrow la la-angle-right"></i> -->
+<!-- 									</a> -->
+<!-- 									<div class="m-menu__submenu"> -->
+<!-- 										<span class="m-menu__arrow"></span> -->
+<!-- 										<ul class="m-menu__subnav"> -->
+<!-- 											<li class="m-menu__item " aria-haspopup="true" > -->
+<!-- 												<a target="_blank" href="snippets/pages/user/login-1.html" class="m-menu__link "> -->
+<!-- 													<i class="m-menu__link-bullet m-menu__link-bullet--dot"> -->
+<!-- 														<span></span> -->
+<!-- 													</i> -->
+<!-- 													<span class="m-menu__link-text"> -->
+<!-- 														Login - 1 -->
+<!-- 													</span> -->
+<!-- 												</a> -->
+<!-- 											</li> -->
+<!-- 										</ul> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+				</ul>
+			</div>
+			<!-- END: Aside Menu -->
+		</div>
+		<!-- END: Left Aside -->
+	</div>
+</body>
+</html>

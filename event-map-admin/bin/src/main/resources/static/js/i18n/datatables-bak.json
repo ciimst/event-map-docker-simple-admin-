@@ -1,0 +1,18 @@
+{
+	"sSearch": "Bul:",
+	"oPaginate": {
+		"sFirst": "<<",
+		"sPrevious": "<",
+		"sNext": ">",
+		"sLast": ">>"
+	},
+	"sProcessing":   "İşleniyor...",
+	"sLengthMenu":   "_MENU_",
+	"sZeroRecords":  "Eşleşen Kayıt Bulunmadı",
+	"sInfo":         "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
+	"sInfoEmpty":    "Kayıt Yok",
+	"sEmptyTable": "Kayıt bulunamadı",
+	"sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
+	"sInfoPostFix":  "",
+	"sUrl":          ""
+}

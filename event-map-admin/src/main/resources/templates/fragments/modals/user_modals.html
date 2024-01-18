@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  >
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="editModal">
+			
+			<div class="modal fade" id="userEditModal" role="dialog" aria-labelledby="userEditModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="userEditModalLabel" th:text="#{label.user.edit}"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<input type="hidden" id="id" name="id">
+								
+								<div class="col-sm-12 p-2">
+									<label for="name" id="full-name-label" th:text="#{label.full.name}"></label>
+									<input type="text"  name="name" id="name" class="form-control"
+										   th:placeholder="#{label.full.name}" aria-labelledby="full-name-label">
+								</div>
+								
+								
+								<div class="col-sm-12 p-2" id="ldapname-div">
+								<label for="ldapname" id="ldapname-label" th:text="#{label.ldap.name}"></label>
+									<select class="form-control m-select2" id="ldapname" name="ldapname">
+										<option></option>
+									</select>
+								</div>
+									
+								
+								<div class="col-sm-12 p-2" id="username-div">
+									<label for="username" id="username-label" th:text="#{label.username}"></label>
+									<input type="text"  name="username" id="username" class="form-control"
+										   th:placeholder="#{label.username}" aria-labelledby="username-label">
+								</div>
+								
+<!-- 								<div class="col-sm-12 p-2" id="providerUserId-div"> -->
+<!-- 									<label for="providerUserId" id="providerUserId-label" th:text="#{label.providerUserId}"></label> -->
+<!-- 									<input type="number" name="providerUserId" id="providerUserId" class="form-control" -->
+<!-- 										   th:placeholder="#{label.providerUserId}" aria-labelledby="providerUserId-label"> -->
+<!-- 								</div> -->
+								
+								<div class="col-sm-12 p-2">
+									<label th:text="#{label.profile}"></label>
+									<div class="m-select2">
+										<select class="form-control m-select2 m_select2_12_4"
+												name="profileId"
+												id="profileId"
+												th:attr="data-placeholder=#{label.profile}">
+											<option></option>
+											<option th:each="profile : ${profiles}"
+													th:value="${profile.id}"
+													th:text="${profile.name}">Options</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="password-container col-sm-12 p-2" id="password-div">
+									<label for="password" id="password-label" th:text="#{label.password}"></label>
+									<div class="input-group">
+										<input type="password"  name="password" id="password" class="form-control" data-toggle="password"
+											   th:placeholder="#{label.password}" aria-labelledby="password-label">
+										<div class="input-group-addon" data-target-toggle="i" data-pair-toggle="la-eye,la-eye-slash">
+											<span class="input-group-text"><i class="la la-eye"></i></span>
+										</div>
+									</div>
+									<small id="passwordHelp" class="form-text text-muted" th:text="#{label.password.help}"></small>
+								</div>
+								
+								<div class="col-sm-12 p-2">
+									<span class="col-9 pl-0" th:text="#{label.user.state}"></span>
+									<span class="col-3 custom-sw m-switch m-switch--sm m-switch--primary">
+										<label>
+											<input type="checkbox" id="state" name="state" value="true">
+											<span></span>
+										</label>
+									</span>
+								</div>
+								<input type="hidden" >
+								<div class="col-sm-12 p-2" id="isDbUser-div">
+									<span class="col-9 pl-0" th:text="#{label.isDbUser}"></span>
+									<span class="col-3 custom-sw m-switch m-switch--sm m-switch--primary">
+										<label>
+											<input type="checkbox" id="isDbUser" name="isDbUser" value="true">
+											<span></span>
+										</label>
+									</span>
+								</div>
+								
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{label.close}">Close</button>
+							<button type="button" id="user-save-btn" class="btn btn-primary" th:text="#{label.save}">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

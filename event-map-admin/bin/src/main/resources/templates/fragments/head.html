@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- begin::Head -->
+	<head th:fragment="head" >
+		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+		<title>
+			AFAD | Dashboard
+		</title>
+		<meta name="description" content="Latest updates and statistic charts">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="shortcut icon" th:href="@{/image/favicon.ico?v=} +${build_version}" type="image/x-icon"/>
+		
+		<!--begin::Web font -->
+<!-- 		<script th:src="@{/js/webfont/webfont_1.6.16.js?v=} +${build_version}"></script> -->
+<!-- 		<script> 
+          WebFont.load({
+            google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+            active: function() {
+                sessionStorage.fonts = true;
+            }
+          });
+ 		</script> -->
+		
+		
+		<link th:href="@{/css/fonts.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		
+		
+		
+		<!--end::Web font -->
+		<!--begin::Base Styles -->
+		<link th:href="@{/css/vendors.bundle.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/css/style.bundle.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		<!--end::Base Styles -->
+		
+		
+		<!-- begin:dataTables -->
+		<!-- <link th:href="@{/css/twitter-bootstrap.css?v=} +${build_version}" rel="stylesheet" type="text/css" />-->
+		<link th:href="@{/css/dataTables.bootstrap4.min.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		<!-- end:dataTables -->
+		
+		<!-- begin:daterangepicker -->
+		<link th:href="@{/css/daterangepicker.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		<!-- end:daterangepicker -->
+		
+		
+		
+		<!-- begin:global -->
+		<link th:href="@{/css/global.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		<!-- end:global -->
+		
+		<!-- begin:list -->
+		<link th:href="@{/css/list.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		<!-- end:list -->
+		
+<!--		<script th:src="@{/webjars/jquery/jquery.min.js?v=} +${build_version}"></script>-->
+<!--		<script th:src="@{/webjars/jquery-blockui/jquery.blockUI.js?v=} +${build_version}"></script>-->
+		
+		
+		
+		<script th:src="@{/js/constants.min.js?v=} +${build_version}"></script>
+		<!--begin::Base Scripts -->
+		<script th:src="@{/js/vendors.bundle.js?v=} +${build_version}"></script>
+		<script th:src="@{/js/scripts.bundle.js?v=} +${build_version}"></script>
+		<!--end::Base Scripts -->
+		
+		<!-- begin:dataTables -->
+		<script th:src="@{/js/jquery.dataTables.min.js?v=} +${build_version}"></script>
+		<script th:src="@{/js/dataTables.bootstrap4.min.js?v=} +${build_version}"></script>
+		<script th:src="@{/js/dataTables.custom.js?v=} +${build_version}"></script>
+		<!-- end:dataTables -->
+		
+		<!-- begin:select2 -->
+		<script th:src="@{/js/select2.js?v=} +${build_version}"></script>
+		<script th:src="@{/js/select2n.min.js?v=} +${build_version}"></script>
+		<!-- end:select2 -->
+		
+		<!-- begin:daterangepicker -->
+		<script th:src="@{/js/daterangepicker.js?v=} +${build_version}"></script>
+		<script th:src="@{/js/daterangepicker.tr.js?v=} +${build_version}"></script>
+		<!-- end:daterangepicker -->
+		<script th:src="@{/webjars/bootbox/bootbox.js?v=} + ${@environment.getProperty('build.version')}"></script>
+		<script th:src="@{/js/lang.min.js?v=} + ${@environment.getProperty('build.version')}"></script>
+		<script th:src="@{/js/menuSelect.js?v=}"></script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var csrf_token = [[${_csrf.token}]];
+			Dropzone.autoDiscover = false;
+			var csrf_header = [[${_csrf.headerName}]];
+			var contextPath = [[@{/}]];
+			var lang_iso = [[#{lang.iso}]];
+			var app_version = [[${@environment.getProperty('build.version')}]];
+			lang.load([[${@i18nController.getMessages()}]]);
+			
+			let dt_error_mode = [[${@environment.getProperty('datatable.error.mode')}]];
+			let pageLength =  parseInt([[${@environment.getProperty('datatable.page.length')}]]);
+
+
+
+			$(document).ready(function () {
+
+				$("#locale").click(function(e) {
+					
+					e.preventDefault(); 
+					
+					if ($(this).data("iso") != undefined) {
+										
+						window.location.replace('?lang=' + $(this).data("iso"));	 
+					}
+				});
+				
+			});
+
+					
+		
+		
+			/*]]>*/
+		</script>
+		
+		<script th:src="@{'/js/i18n/datetimepicker.' + #{lang.iso} + '.js?v='}  +${build_version}"></script>
+		
+		<script th:src="@{/js/init.min.js?v=} +${build_version}"></script>
+		<script th:src="@{/js/custom-utility.js?v=} +${build_version}"></script>
+		<script th:src="@{/js/custombox.min.js?v=} + ${@environment.getProperty('build.version')}"></script>
+		
+		<script>//TODO:blockUI
+			
+			 $.blockUI.defaults.message = '<h1 style="margin-bottom: .5rem;font-family: inherit;font-weight: 500;line-height: 1.1;color: inherit;font-size:2.5rem;">'+ lang.get("label.please.wait") +'</h1>';
+			// $.blockUI.defaults.css = {};
+		</script>
+		
+	</head>
+	<!-- end::Head -->
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  >
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="exportExcelModal">
+			
+			<div class="modal fade" id="exportExcelModal" role="dialog" aria-labelledby="exportExcelModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exportExcelModalLabel" th:text="#{label.export.to.excel}"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<input type="hidden" id="id" name="id">
+														
+  			                    <div class="col-sm-12 p-2">
+									<p>
+					                   <span><span style="float: left" id="exportExcelInfo" class="col-9 pl-0" ></span></span>
+					                </p>
+								</div>							
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{label.close}">Close</button>
+							<button type="button" id="excel-save-btn" class="btn btn-primary" th:text="#{label.save}">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

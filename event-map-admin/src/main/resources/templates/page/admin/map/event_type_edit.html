@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      lang="en">
+    <head>
+        <title>Map Area Edit template</title>
+    </head>
+    <body layout:fragment="content" >
+        <link th:href="@{/css/map/event-type-edit.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+    
+    
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let eventTypeItem = [[${eventTypeItem}]];
+            let notFound = [[${notFound}]];
+            /*]]>*/
+        </script>
+        
+        
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                    <!--begin::Form-->
+    
+                    <div class="m-portlet__head">
+                        <div class="m-portlet__head-caption">
+                            <div class="m-portlet__head-title">
+                                <h3 class="m-portlet__head-text edit-page-title" th:text="#{label.eventType.edit}"></h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="event-type-form m-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed p-1" >
+                        <input type="hidden" id="id" name="id" th:value="${eventTypeItem.id}" />
+                        <div class="m-portlet__body">
+                            <div class="form-group m-form__group row" style="border:none;">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label for="name" id="title-label" th:text="#{label.name}"></label>
+                                    <input type="text"  name="name" id="name" class="form-control"
+                                           th:placeholder="#{label.title}" aria-labelledby="map-area-title-label" th:value="${eventTypeItem.name}">
+                                </div>
+    
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <label for="code" id="code-label" th:text="#{label.code}"></label>
+                                    <input type="text"  name="code" id="code" class="form-control"
+                                           th:placeholder="#{label.code}" aria-labelledby="map-area-title-label" th:value="${eventTypeItem.code}">
+                                </div>
+                         </div>   
+                         
+                          <div class="form-group m-form__group row">
+                                <div class="col-lg-4 col-md-4 col-sm-12 " id="iconSvg">
+                                
+                                    <label for="image" id="icon-label" >
+                                        <span id="eventTypeEditText" th:text="#{label.icon}"></span>
+                                       <!--   <span class="icon-preview">                                       	
+                                        </span> -->
+                                        <div id="svgOutDiv" >
+                                        	<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width=“100%” height=“100%” viewBox="0 0 200 100" id="eventTypeSvg">      
+                                        </svg>   
+                                        </div>                            
+                                    </label>
+                                    
+                                    <input type="text" id="IconCreatorText" class="form-control"  maxlength="3" style="width:auto; float:right;"
+                                           placeholder="Custom Icon"> 
+                                           
+                                    <button id="IconCreatorBtn" type="button" style="margin-right:10px;" class="btn btn-primary button-r">
+                                    	<span><span>Icon</span></span>
+                                    </button>
+                                           
+                                    <textarea rows="10" style="resize: none"
+                                              name="image" id="image" class="form-control"
+                                              th:placeholder="#{label.icon}" aria-labelledby="map-area-coordinate-label" th:text="${eventTypeItem.image}">
+                                        
+                                    </textarea>
+                                </div>
+                                
+                              
+                                 <div class="col-lg-4 col-md-4 col-sm-12 " style="margin-top: 15px;">
+                                
+                                    <label for="pathData" id="icon-label" >
+                                        <span  th:text="#{label.eventTypePathData}"></span>
+                                                               
+                                    </label>
+                                    <textarea rows="10" style="resize: none"
+                                              name="pathData" id="pathData" class="form-control"
+                                              th:placeholder="#{label.eventTypePathData}" aria-labelledby="map-area-coordinate-label" th:text="${eventTypeItem.pathData}">
+                                        
+                                    </textarea>
+                                </div>
+           
+                            </div>
+                            
+                            <div class="form-group m-form__group row justify-content-end" sec:authorize="hasRole('ROLE_EVENT_TYPE_MANAGE')">
+                                <div class="col-lg-4" >
+                                    <div class="m-input-icon m-input-icon--right">
+                                        <button type="button" id="save-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r">
+                                            <span><i class="la la-fw la-save"></i><span th:text="#{label.save}">Save</span></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+                
+            </div>
+        </div>
+      
+        <div class="modal-container">
+        
+        </div>
+        
+        <script th:src="@{/js/admin/map/event-type-edit.js?v=} + ${@environment.getProperty('build.version')}"></script>
+    
+    </body>
+</html>

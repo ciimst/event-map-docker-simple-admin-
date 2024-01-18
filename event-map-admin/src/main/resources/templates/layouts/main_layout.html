@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  th:with="build_version=${@environment.getProperty('build.version')}"
+>
+	<head th:replace="fragments/head :: head">
+	
+	</head>
+	
+	<body
+			class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+		
+        <div class="m-grid m-grid--hor m-page">
+			<div th:replace="fragments/header :: header">Header</div>
+			<div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+				<!--pl-1 pr-1 pr-sm-0 pr-md-1 pr-lg-2 pr-xl-2-->
+				
+				<div th:replace="fragments/sidebar :: sidebar">Sidebar</div>
+				<div layout:fragment="content">Page Content</div>
+			
+			</div>
+			
+<!-- 			<footer th:replace="fragments/footer :: footer">Footer</footer> -->
+		
+		</div>
+		
+		
+	
+	</body>
+</html>

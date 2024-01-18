@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.Svc.Admin.name }}
+spec:
+  selector:
+    app: {{ .Values.Svc.Admin.name }}
+  ports:
+    - port: {{ .Values.Svc.Admin.port }}  
+      targetPort: {{ .Values.Svc.Admin.target_port }}
+  type: {{ .Values.Svc.type }}
+

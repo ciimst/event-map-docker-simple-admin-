@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables"
+      lang="en">
+    <head>
+        <title>Hello World!</title>
+
+    </head>
+    <body layout:fragment="content" >
+    
+        <link th:href="@{/css/profile.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/css/map/map-area-edit.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/css/leaflet/easy-button.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/css/leaflet/leaflet.draw.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/webjars/leaflet/leaflet.css?v=} + ${build_version}" rel="stylesheet" type="text/css" />
+		
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,500i,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" th:href="@{/css/dropzone.css}">
+		
+		<script th:src="@{/webjars/leaflet/leaflet.js?v=} + ${@environment.getProperty('build.version')}"></script>
+		<script th:src="@{/js/leaflet/easy-button.js?v=} + ${@environment.getProperty('build.version')}"></script>
+		<script th:src="@{/js/leaflet/leaflet.draw.js?v=} + ${@environment.getProperty('build.version')}"></script>
+		
+	
+		<link th:href="@{/css/mobileTileFile.css}" rel="stylesheet" type="text/css" />
+		
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">
+                
+	
+                
+	
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="" style="font-size:20px; margin-top:20px;" th:text="#{label.mobile.data}">Mobil Veri</h3>														
+							</div>
+						</div>
+					</div>
+						
+					
+					<div class="col-lg-4 col-md-4 col-sm-12 pb-4">
+						<div class="" style="display: flex;">						
+							
+							<div class="col-sm-12 p-2">
+									<label for="username" id="username-label" th:text="#{label.export.name}"></label>
+									<input type="text"  name="name" id="name" class="form-control"  th:value="${tileExportItem == null ? '' : tileExportItem.name }"
+										   th:placeholder="#{label.export.name}" aria-labelledby="username-label">
+						  	</div>								
+							<div class="col-sm-12 p-2">
+							
+								<input type="hidden" id="tileExportId" th:value="${tileExportItem == null ? '' : tileExportItem.id}"/>
+								<input type="hidden" id="tileExportMaxLat" th:value="${tileExportItem == null ? '' : tileExportItem.maxLat}"/>
+								<input type="hidden" id="tileExportMinLat" th:value="${tileExportItem == null ? '' : tileExportItem.minLat}"/>
+								<input type="hidden" id="tileExportMaxLong" th:value="${tileExportItem == null ? '' : tileExportItem.maxLong}"/>
+								<input type="hidden" id="tileExportMinLong" th:value="${tileExportItem == null ? '' : tileExportItem.minLong}"/>
+								<input type="hidden" id="tileServerId" th:value="${tileExportItem == null ? '' : tileExportItem.tileServerId}"/>
+								<input type="hidden" id="tileServerUrl" th:value="${tileExportItem == null ? '' : tileExportItem.tileServerUrl}"/>
+								
+								<label for="name" id="full-name-label" th:text="#{label.min.zoom.level}"></label><span style="color: red;">*</span>
+								<input type="text"  name="minZoom" id="minZoom" class="form-control" th:value="${tileExportItem == null ? '' : tileExportItem.minZ }"
+									   th:placeholder="#{label.min.zoom.level}" aria-labelledby="full-name-label">
+							</div>		
+															
+							<div class="col-sm-12 p-2" style="float:left;">
+								<label for="username" id="username-label" th:text="#{label.max.zoom.level}"></label><span style="color: red;">*</span>
+								<input type="text"  name="maxZoom" id="maxZoom" class="form-control"  th:value="${tileExportItem == null ? '' : tileExportItem.maxZ }"
+									   th:placeholder="#{label.max.zoom.level}" aria-labelledby="username-label">
+							</div>
+								
+							</div>	
+               		</div>              		              							
+										
+					<div class="col-lg-4 col-md-4 col-sm-12 pb-4">
+						<div class="map-container-parent ">
+							<div class="map-container">
+								<div id="mapid" style="z-index: 50; width:1500px; height:600px;"></div>
+							</div>
+						</div>
+					</div>
+               		             		
+                    <div class="form-group m-form__group row justify-content-end" id="create">
+                        <div class="" >
+                            <div class="m-input-icon m-input-icon--right">
+                            	                          		                                                            	                                                
+                                 <button  type="button" id="tileCreateButton" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r" onclick="tileExportCreate()" style="margin:15px;">
+									<span><i class="la la-plus-square-o"></i><span th:text="#{label.tile.export.create}">Tile Export Oluştur</span></span>									
+                                 </button>
+                                 
+                                 <button type="button" id="editAndSaveButton" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r" onclick="tileExportSave()" style="margin:15px;">
+									<span><i class="la la-plus-square-o"></i><span id="tileExportSaveText" th:text="#{label.edit}">Düzenle</span></span>								
+                                 </button> 
+                                 
+                            </div>                                                          
+            			 </div>
+            		 </div>
+					
+                </div>
+                
+                
+                
+                <div class="m-portlet">
+            	<div class="row">
+            	
+	               <div class="" id="mobilDataList" style="float:left;" th:if="${tileFileList!=null and !tileFileList.empty}">	
+						<div class="m-portlet__head" >
+							<div class="m-portlet__head-caption">
+								<div class="m-portlet__head-title">
+									<h3 class="mobileData" text="Mobil Veri">Mobil Tile Verileri</h3>
+									<h3 class="mobileTileCriteria">[[#{label.create.date}]]: <span name="createDate" class="test" th:text="${#dates.format(tileExportItem.createDate, 'dd-MM-yyyy HH:mm')}"></span></h3>	
+									<h3 class="mobileTileCriteria">[[#{label.min.zoom.level}]]: <span name="" style="margin-right: 5px;" class="" th:text="${tileExportItem.minZ}"> </br></span>[[#{label.max.zoom.level}]]:<span name="" class="" th:text="${tileExportItem.maxZ}"></span></h3>					
+								</div>
+							</div>
+						</div>
+						
+						<div class="m-portlet__body">		
+				            <ul class="list-group">             
+						       <li class="list-group-item" id="tileFile" th:each="tileItem : ${tileFileList}">
+								 <a th:href="@{'/admin/map/tile-export/tileFileDownload/'+${tileItem.key}+'/'+${tileItem.value}}" th:text="${tileItem.key}" th:value="${tileItem.value}"></a>						   
+							   </li>
+							</ul>
+						</div>
+				   </div>       
+				     
+				   			               
+               </div>           
+            </div>
+          </div>
+        </div>
+    
+    	<script th:src="@{/js/admin/map/minimapn.js?v=} + ${@environment.getProperty('build.version')}"></script>
+        <script th:src="@{/js/admin/map/tile-export-page.js?v=} + ${@environment.getProperty('build.version')}"></script>   
+		
+    </body>
+</html>

@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.Dep.Admin.name }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount.admin }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.Dep.Admin.name }}
+  template:
+    metadata:
+      labels:
+        {{- include "eventmapchart.postgisNetworkLabels" . | nindent 8 }}
+        app: {{ .Values.Dep.Admin.name }}
+    spec:
+      {{- if .Values.Dep.imageCredentials.enabled }}
+      imagePullSecrets:
+        - name: {{ .Values.Dep.imageCredentials.secretUsed }}
+      {{- end}}
+      containers:
+        - image: {{ .Values.Dep.registry }}/{{ .Values.Dep.Admin.image.repo }}:{{ .Values.Dep.Admin.image.tag }}
+          name: {{ .Values.Dep.Admin.name }}
+          {{- if .Values.Dep.Admin.command }}
+          command:
+          {{ toYaml .Values.Dep.Admin.command | nindent 12 }}
+          {{- end }}
+          {{- with .Values.Config.Admin.envFrom }}
+          envFrom:
+              {{- toYaml . | nindent 14 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.Dep.Admin.containerport }}
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            # tcpSocket:
+            #   port: {{ .Values.Dep.Admin.containerport }}
+            httpGet:
+              {{- if .Values.Ingress.enabled }}
+              path: {{ .Values.Ingress.AdminPath }}{{ .Values.Properties.Admin.SERVER_SERVLET_CONTEXTPATH }}/live
+              {{- else }}
+              path: {{ .Values.Properties.Admin.SERVER_SERVLET_CONTEXTPATH }}/live
+              {{- end }}
+              port: {{ .Values.Dep.Admin.containerport }}
+              {{- if .Values.Properties.Admin.SERVER_SSL_ENABLED }}
+              scheme: HTTPS
+              {{- end }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          {{- end }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            # tcpSocket:
+            #   port: {{ .Values.Dep.Admin.containerport }}
+            httpGet:
+              {{- if .Values.Ingress.enabled }}
+              path: {{ .Values.Ingress.AdminPath }}{{ .Values.Properties.Admin.SERVER_SERVLET_CONTEXTPATH }}/ready
+              {{- else }}
+              path: {{ .Values.Properties.Admin.SERVER_SERVLET_CONTEXTPATH }}/ready
+              {{- end }}
+              port: {{ .Values.Dep.Admin.containerport }}
+              {{- if .Values.Properties.Admin.SERVER_SSL_ENABLED }}
+              scheme: HTTPS
+              {{- end }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          {{- end }}

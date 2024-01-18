@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  >
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+	</head>
+	<body>
+		<div th:fragment="fakeLayerIdModal">
+			
+			<div class="modal fade" id="fakeLayerIdModal" role="dialog" aria-labelledby="fakeLayerIdModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="fakeLayerIdModalLabel" th:text="#{label.fake.layer.add}"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+							<input type="hidden" id="fakeLayerId" name="layerId"/>
+								<div class="col-sm-12 p-2">
+									<label for="roleId" id="roleId-label" th:text="#{label.roleId}"></label>
+									<input type="text" name="roleId" id="roleId" class="form-control"
+										   th:placeholder="#{label.roleId}" aria-labelledby="full-roleId-label">
+								</div>						
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{label.close}">Close</button>
+							<button type="button" id="fake-layer-id-save-btn" class="btn btn-primary" th:text="#{label.save}">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div th:fragment="fakeLayerIdWithLayerModal">
+			
+			<div class="modal fade" id="fakeLayerIdModal" role="dialog" aria-labelledby="fakeLayerIdModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="fakeLayerIdModalLabel" th:text="#{label.fake.layer.add}"></h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+							<input type="hidden" id="fakeLayerId" name="layerId"/>
+								<div class="col-sm-12 p-2">
+				                 <label th:text="#{label.layer}"></label>
+				                 <div class="m-select2">
+				                     <select class="form-control m-select2 m_select2_12_4"
+				                             name="layerId" id="modalLayerId"
+				                             th:attr="data-placeholder=#{label.layer}">
+				                         <option></option>
+				                         <option th:each="layer : ${layers}"
+				                                 th:value="${layer.id}"
+				                                 th:text="${layer.name}">Options</option>
+				                     </select>
+				                 </div>
+				             </div>	
+								
+								<div class="col-sm-12 p-2">
+									<label for="roleId" id="roleId-label" th:text="#{label.roleId}"></label>
+									<input type="text" name="roleId" id="roleId" class="form-control"
+										   th:placeholder="#{label.roleId}" aria-labelledby="full-roleId-label">
+								</div>						
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" th:text="#{label.close}">Close</button>
+							<button type="button" id="fake-layer-id-save-btn" class="btn btn-primary" th:text="#{label.save}">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

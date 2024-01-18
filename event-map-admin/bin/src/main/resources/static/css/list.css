@@ -1,0 +1,110 @@
+.table-hover tbody tr:hover {
+   	background: #f7f7fc;
+}
+
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+   	padding: 16px 10px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: #fbfbfe;
+}
+
+.page-link {
+	cursor: pointer;
+	display: inline-block;
+	height: 2.25rem;
+	width: 2.25rem;
+	vertical-align: middle;
+	padding: 0;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	text-align: center;
+	position: relative;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	justify-content: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	align-items: center;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 1rem;
+	line-height: 1rem;
+	font-weight: 400;
+	border: none;
+}
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+   	border-radius: 50%
+}
+
+ul.pagination>li {
+    margin-right: 5px;
+}
+
+ul.pagination>li:last-child {
+    margin-right: 0px;
+}
+
+.page-item.disabled .page-link {
+   	color: #716aca;
+   	background: #edecf8;
+}
+
+li.previous>a,
+li.next>a,
+li.first>a,
+li.last>a {
+	color: #716aca;
+	background: #edecf8;
+}
+
+li.previous>a:hover,
+li.next>a:hover,
+li.first>a:hover,
+li.last>a:hover {
+	background: #deddf3;
+}
+   
+#example_wrapper .bottom {
+	display: flow-root;
+}
+
+.bottom .dataTables_paginate {
+	float: left;
+}
+   
+div.dataTables_wrapper div.dataTables_info {
+   	padding-top: 0.30em;
+   	float: right;
+}
+
+div.dataTables_wrapper div.dataTables_length label {   
+    float: right;
+}
+
+.m-form.m-form--group-seperator-dashed .m-form__group {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+td .dropdown {
+   	display: inline-block;
+}
+
+.list-mini-dropdown{
+	float: right; 
+	top: 12px;
+}

@@ -1,0 +1,18 @@
+.dataTables_wrapper .bottom {
+    display: flow-root;
+}
+
+table {
+    table-layout: fixed;
+}
+
+#logTableId th:nth-child(1) { width: 15% }
+#logTableId th:nth-child(2) { width: 15% }
+#logTableId th:nth-child(3) { width: 15%;}
+#logTableId th:nth-child(4) {width: 40%;}
+#logTableId th:nth-child(5) { width: 15%;}
+
+#logTableId div.log-desc {
+    overflow: auto;
+    max-height: 100px;
+}

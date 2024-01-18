@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main_layout}"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables"
+      lang="en">
+    <head>
+        <title>Hello World!</title>
+    </head>
+    <body layout:fragment="content" >
+    
+        <link th:href="@{/css/global.css?v=} +${build_version}" rel="stylesheet" type="text/css" />
+    
+        <div class="m-grid__item m-grid__item--fluid m-wrapper page-r-0">
+            <div class="m-content">
+                <div class="m-portlet">                 
+                        <div class="m-portlet__body">                                              
+                                <div class="m-portlet__head-caption">
+                                    <div class="m-portlet__head-title">
+                                       <h5 class="m-portlet__head-text" th:text="#{label.encryptionprocess}"></h5>
+                                    </div>
+                                </div>
+                                                                 
+                        </div>            
+               </div>
+          
+               <div class="m-portlet">
+               		<div class="m-portlet__body">
+                                                                       
+                          <div class="m-portlet__head-title">
+                              <label class="m-portlet__head-text" th:text="#{label.enter.the.value.you.want.to.trade}"></label>
+                          </div>
+                          
+                          <div class="m-input-icon m-input-icon--right">
+                             <textarea class="textareaPassword" id="password-1" name="password" rows="4" cols="100"></textarea><br><br>                                                               
+                          </div>                                                                                   
+                                           
+               		</div>
+               </div>   
+               <div class="m-portlet__head-tools" sec:authorize="hasRole('ROLE_ENCRYPT_MANAGE')">      
+                  <div class="m-input-icon m-input-icon--right p-3">                            
+                      <button type="button" id="password-decrypt-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r" onclick="decrypt()">
+                         <span><i class="m-menu__link-icon flaticon-lock"></i><span th:text="#{label.decrypt}">Şifre Çöz</span></span>
+                      </button> 
+                      <button type="button" id="password-encrypt-button" class="btn btn-primary m-btn m-btn--icon m-btn--wide button-r mr-4" onclick="encrypt()">
+                         <span><i class="m-menu__link-icon flaticon-lock"></i><span th:text="#{label.encrypt}">Şifrele</span></span>
+                      </button>                                                
+                  </div>      
+               </div>       
+                     <br>                
+                     <br> 
+                     <br> 
+               <div class="m-portlet">
+               		<div class="m-portlet__body">
+                                                                         
+                          <div class="m-portlet__head-title">
+                              <label class="m-portlet__head-text" th:text="#{label.output}"></label>
+                          </div>
+                                                         
+                          <div class="m-input-icon m-input-icon--right">
+                              <textarea class="textareaPassword" id="password-2" name="password" rows="4" cols="100" readonly></textarea>
+                                                                  
+                          </div>
+                                           
+                	</div>
+                </div>
+         
+          </div>
+         </div>
+
+
+        <script th:src="@{/js/admin/encrypt-decrypt-page.js?v=} +${build_version}"></script>
+    </body>
+</html>
