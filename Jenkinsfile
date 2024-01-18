@@ -6,7 +6,7 @@ pipeline{
 	stages{
     stage('Start Project'){
 	    steps{
-checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '13daaff0-994d-486d-8d1b-0f050daeeb26', url: 'https://github.com/ciimst/event-map-docker-simple.git']])		    
+checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: '13daaff0-994d-486d-8d1b-0f050daeeb26', url: 'https://github.com/ciimst/event-map-docker-simple-admin-.git']])		    
 	    sh 'bash Script.sh -r localhost:5000'
 	    sh 'helm uninstall event-map-chart'
 	    sh 'helm install event-map-chart ./event-map-helm-chart'
@@ -25,7 +25,7 @@ checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs:
 	post {
 	failure {
 		mail bcc: '', body: '''Docker permission denied hatası olabilir. sudo chmod 666 /var/run/docker.sock komut satırı ile izinleri açmanız gerekmektedir.!!!!
-                Thanks, Ayse''', cc: '', from: '', replyTo: '', subject: 'Docker failed', to: 'aysayparcasi@gmail.com'
+                Thanks, Ayse''', cc: '', from: '', replyTo: '', subject: 'Docker failed', to: 'ceylan.yoncaci@imst.com.tr'
                 echo 'e-mail OK!'
 
 	}
