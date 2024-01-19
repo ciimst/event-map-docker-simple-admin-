@@ -45,7 +45,7 @@ PostgisNetworkName: eventmap-network
 PostgisServiceName: eventmap-postgres
 
 postgresql:
-  enabled: true
+  enabled: false
   fullnameOverride: "eventmap-postgres"
   image:
     registry: "177.177.0.236:5000"
