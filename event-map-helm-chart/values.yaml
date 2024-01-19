@@ -61,7 +61,7 @@ postgresql:
       password: "1qaz2wsx-"
 
 redis:
-  enabled: true
+  enabled: false
   image:
     registry: "177.177.0.236:5000"
   global:
