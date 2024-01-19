@@ -61,7 +61,7 @@ postgresql:
       password: "1qaz2wsx-"
 
 redis:
-  host: "eventmap-redis-master"
+  host: "eventmap-redis"
   port: 6379
   password: "1qaz2wsx-"
 
