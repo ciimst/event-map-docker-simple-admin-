@@ -351,15 +351,15 @@
 
 	<distributionManagement>
 	    <repository>
-	      <id>nexus</id>
-	      <name>Releases</name>
-	      <url>http://177.177.0.236:8081/repository/maven-releases</url>
+	      <id>jenkins-user</id>
+	      <name>event-map-hibernate-entities</name>
+	      <url>http://177.177.0.236:8081/repository/event-map-hibernate-entities/</url>
 	    </repository>
 	    <snapshotRepository>
-	      <id>nexus</id>
-	      <name>Snapshot</name>
-	      <url>http://177.177.0.236:8081/repository/maven-snapshots</url>
+	      <id>jenkins-user</id>
+	      <name>event-map-hibernate-entities</name>
+	      <url>http://177.177.0.236:8081/repository/event-map-hibernate-entities/</url>
 	    </snapshotRepository>
-	  </distributionManagement>
+	</distributionManagement>
 
 </project>
