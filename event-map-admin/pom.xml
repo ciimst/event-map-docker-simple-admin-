@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.imst.event.map</groupId>
 	<artifactId>event-map-admin</artifactId>
-	<version>1.4.30</version>
+	<version>1.4.5</version>
 	<packaging>jar</packaging>
 	<name>event-map-admin</name>
 	<description>Harita üzerinde haber takibi yapabilir uygulamanın admin paneli</description>
