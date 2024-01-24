@@ -21,7 +21,12 @@
 		<keycloak.version>22.0.1</keycloak.version>
 	</properties>
 
-
+	<repositories>
+	    <repository>
+		<id>nexus-releases</id>
+		<url>http://177.177.0.236:8081/repository/event-map-hibernate-entities/</url>
+	    </repository>
+	</repositories>
 	
 	<dependencies>
 		<dependency>
@@ -349,6 +354,7 @@
 		</plugins>
 	</build>
 
+	<!--
 	<distributionManagement>
 	    <repository>
 	      <id>jenkins-user</id>
@@ -360,6 +366,6 @@
 	      <name>event-map-hibernate-entities</name>
 	      <url>http://177.177.0.236:8081/repository/event-map-hibernate-entities/</url>
 	    </snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 
 </project>
