@@ -10,14 +10,14 @@
 	</parent>
 	<groupId>com.imst.event.map</groupId>
 	<artifactId>event-map-admin</artifactId>
-	<version>1.4.5</version>
+	<version>1.4.6</version>
 	<packaging>jar</packaging>
 	<name>event-map-admin</name>
 	<description>Harita üzerinde haber takibi yapabilir uygulamanın admin paneli</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<hibernate-entities-version>1.4.30</hibernate-entities-version>
+		<hibernate-entities-version>1.4.6</hibernate-entities-version>
 		<keycloak.version>22.0.1</keycloak.version>
 	</properties>
 
