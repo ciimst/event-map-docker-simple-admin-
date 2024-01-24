@@ -8,7 +8,7 @@ Dep:
     name: event-map-admin
     image:
       repo: event_map_admin
-      tag: 1.4.30
+      tag: 1.4.6
     command: 
       - java
       - -Xms512m 
