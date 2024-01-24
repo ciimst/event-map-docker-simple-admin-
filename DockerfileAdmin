@@ -12,7 +12,7 @@ COPY event-map-admin/src src
 COPY event-map-admin/pom.xml pom.xml
 RUN mvn package -DskipTests
 
-RUN cd /target && mv event-map-admin-1.4.30.jar event-map-admin.jar
+RUN cd /target && mv event-map-admin-1.4.6.jar event-map-admin.jar
 
  # Copy images
 COPY static/admin_login_image.jpg /event-map/images/static/admin_login_image.jpg
